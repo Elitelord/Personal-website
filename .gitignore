@@ -1,0 +1,26 @@
+.DS_Store
+node_modules
+.next
+out
+.now
+/public/feed.xml
+dist/
+packages/
+yalc.lock
+.yalc
+.env*
+
+.vercel
+
+# Supabase
+.supabase
+
+# Supabase
+**/supabase/.branches
+**/supabase/.temp
+
+.vscode
+
+# next bundle analyzer
+analyze/
+.env*.local
