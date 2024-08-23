@@ -25,7 +25,7 @@ const About = () => {
           Feather Icons
         </Link>
         . You can view the source on{' '}
-        <Link external href="https://github.com/maxleiter/maxleiter.com">
+        <Link external href="https://github.com/Elitelord/Personal-website">
           GitHub
         </Link>
         .
