@@ -6,7 +6,7 @@ import { getProjects } from '@lib/projects'
 import styles from './page.module.css'
 import TimeOfDay from '../../timer'
 import { ContentListRSC } from '@components/content-list'
-
+import NavBar from '@components/navbar/navbar';
 const PROJECT_COUNT = 3
 
 export default async function HomePage() {
@@ -14,8 +14,10 @@ export default async function HomePage() {
 
   return (
     <>
+      <NavBar />
       <AboutMe />
       <Socials />
+      <div className="jumbotron jumbotron-fluid text-center titleImage" style = {{padding: 70}}>
       <h2 style={{ padding: 'var(--gap-quarter) 0' }}>My projects</h2>
       <ProjectList
         showYears={false}
@@ -29,6 +31,7 @@ export default async function HomePage() {
           <NotesListRSC />
         </Suspense>} */}
       {/* /> */}
+      </div>
       <h2 style={{ padding: 'var(--gap-quarter) 0' }}> Posts and other half-baked thoughts</h2>
       <ContentListRSC />
       <footer className={styles.footer}>

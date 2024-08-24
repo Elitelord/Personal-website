@@ -3,7 +3,9 @@
   height: 100%;
   padding-bottom: var(--small-gap);
 }
-
+.style {
+  background: "blue"
+}
 .main {
   max-width: var(--main-content);
   margin: 0 auto;

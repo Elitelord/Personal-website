@@ -2,7 +2,9 @@
   color: var(--gray) !important;
   padding: var(--gap-half) !important;
 }
-
+.style {
+  background: "blue"
+}
 .icon:active,
 .icon:hover,
 .icon:focus-within {
