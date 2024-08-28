@@ -1,34 +1,79 @@
-## My personal site
+![thumbnail](https://user-images.githubusercontent.com/16558205/180779213-ea740975-3df1-460a-a964-0a623ee25872.png)
 
-### Getting started
-1. Install the `pnpm` package manager: https://pnpm.io/
-2. Run `pnpm` in the project directory
-3. Run `pnpm dev` to start a local developer server
+### Live - https://react-portfolio-template.netlify.app/
+
+### Demo Video - https://www.youtube.com/watch?v=62_HLbx2zLQ&t=9s
+
+### Tutorials
+
+Youtube - https://www.youtube.com/watch?v=8cmJ2kR4SpM
+
+Blog - https://blog.chetanverma.com/how-to-build-a-portfolio-website-using-nextjs-and-tailwindcss
+
+### Features - 
+
+- Modern Stack (Next.js + TailwindCSS)
+- Minimal Design
+- Easy To Browse
+- Easy To Customize your details With GUI
+- Blog Crud (Create, Read, Update, Delete blog with easy to use UI).
+- Dark Mode
 
 
-### Environment variables
-- `GITHUB_TOKEN`: necessary if you want to fetch github stars for projects
-- `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`: required for analytics. See https://maxleiter.com/blog/supabase-next-analytics for more info
-- If you want the git commit hash in the bottom of the home page, you need to host with vercel or provide a `NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA` env var
- 
+### Sections
 
-### Usage:
-- `pnpm <command>`:
-    - `lint`: automatically lints files
-    - `dev`: start a local instance with live reloading
-    - `rss`: generate an RSS feed 
-    - `build`: generate an RSS feed and production site
-    - `analyze`: generate a bundle you can inspect via @next/bundle-analyzer
-    - `start`: start a production instance built via `yarn build`
+- Header
+- Work
+- Services
+- About
+- Contact
+- Markdown Blog
 
-### Directory structure:
-- app
- - `components/`: react components
- - `data/`: static data that can eventually be moved to a DB or something
- - `lib/`: hooks, 3rd party API stuff, utils functions
- - `pages/`: next.js pages (the actual routes that are rendered)
- - `styles/`: contains the global styles
-- `pages/api`: nextjs API routes
-- `posts/`: markdown files rendered at build time 
-- `public/`: images for blog, favicon, built files
-- `scripts/`: contain the scripts for building the sitemap and RSS feed
+
+### How To Use
+
+- Clone this repo
+- run `yarn`
+- `yarn dev`
+
+
+### How To Deploy - 
+
+- There are many ways to Deploy this repo.
+- here we are gonna use netlify
+- Login into netlify with github
+- after login select the forked repo or the repo you want to deploy
+- after selecting netlify will automatially deploy your website.
+
+Quickes way to deploy this repo - 
+
+[![Deploy To Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/chetanverma16/react-portfolio-template)
+
+
+### How To Contribute - 
+
+I would be very happy to review your PRs and all the awesome things that you can improve on this portfolio.
+
+
+### Tech Stack Used - 
+- Next.js
+- TailwindCSS
+
+
+### Thanks
+
+If you liked this portfolio template, don't forget to give it a ⭐.
+
+## Awesome Contributors
+[@Aryan3212](https://github.com/Aryan3212) [@achu-krishna](https://github.com/achu-krishna)
+
+## Supporting
+Many hours of hard work have gone into this project. Your support will be very appreciated!
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/chetanverma)
+
+
+
+
+
+
