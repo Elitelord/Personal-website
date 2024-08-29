@@ -70,15 +70,20 @@ const Resume = () => {
               </div>
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Education</h1>
+                {resume.education.map(({universityName, universityDate, universityPara, universityGPA })=>(
                 <div className="mt-2">
-                  <h2 className="text-lg">{resume.education.universityName}</h2>
+                  <h2 className="text-lg">{universityName}</h2>
                   <h3 className="text-sm opacity-75">
-                    {resume.education.universityDate}
+                    {universityDate}
                   </h3>
                   <p className="text-sm mt-2 opacity-50">
-                    {resume.education.universityPara}
+                    {universityPara}
+                  </p>
+                  <p className="text-sm mt-2 opacity-50">
+                    {universityGPA} Unweighted GPA
                   </p>
                 </div>
+              ))}
               </div>
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Skills</h1>

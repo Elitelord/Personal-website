@@ -112,13 +112,13 @@ export default function Home() {
           <h1 className="text-2xl text-bold">Involvements</h1>
 
           <div className="mt-5 laptop:mt-10 grid grid-cols-1 tablet:grid-cols-2 gap-4">
-            {data.involvements.map((involvement) => (
+            {data.resume.experiences.map((involvement) => (
               <Involvement
                 key={involvement.id}
-                name={involvement.title}
+                name={involvement.org}
                 position = {involvement.position}
                 dates = {involvement.dates}
-                description={involvement.description}
+                description={involvement.bullets}
                 onClick={() => window.open(involvement.url)}
               />
             ))}

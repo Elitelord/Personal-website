@@ -146,6 +146,32 @@ const Edit = () => {
     });
   };
 
+  const handleEditEducation = (index, editEducation) => {
+    let copyEducation = data.resume.education;
+    copyEducation[index] = { ...editEducation };
+    setData({
+      ...data,
+      resume: { ...data.resume, education: copyEducation },
+    });
+  };
+  const handleAddEducation = () => {
+    setData({
+      ...data,
+      resume: {
+        ...data.resume,
+        education: [
+          ...data.resume.education,
+          {
+            id: uuidv4(),
+            universityName: "",
+            universityDate: "",
+            universityGPA: "",
+            universityPara: "",
+          },
+        ],
+      },
+    });
+  }
   return (
     <div className={`container mx-auto ${data.showCursor && "cursor-none"}`}>
       <Header isBlog></Header>
@@ -609,13 +635,13 @@ const Edit = () => {
                     ></input>
                   </div>
                   <div className="flex items-center mt-2">
-                    <label className="w-1/5 text-lg opacity-50">Type</label>
+                    <label className="w-1/5 text-lg opacity-50">Org</label>
                     <input
-                      value={experiences.type}
+                      value={experiences.org}
                       onChange={(e) =>
                         handleEditExperiences(index, {
                           ...experiences,
-                          type: e.target.value,
+                          org: e.target.value,
                         })
                       }
                       className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -664,20 +690,22 @@ const Edit = () => {
             <hr className="my-10"></hr>
             <div className="mt-10">
               <h1>Education</h1>
+              {data.resume.education.map((education, index) => (
+                <div className="mt-5" key={education.id}>
+                  <Button
+                      // onClick={() => deleteProject(project.id)}
+                      type="primary"
+                    >
+                      Delete
+                    </Button>
               <div className="flex items-center mt-5">
                 <label className="w-1/5 text-lg opacity-50">Name</label>
                 <input
-                  value={data.resume.education.universityName}
+                  value={education.universityName}
                   onChange={(e) =>
-                    setData({
-                      ...data,
-                      resume: {
-                        ...data.resume,
-                        education: {
-                          ...data.resume.education,
-                          universityName: e.target.value,
-                        },
-                      },
+                    handleEditEducation(index, {
+                      ...education,
+                      universityName: e.target.value,
                     })
                   }
                   className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -687,17 +715,25 @@ const Edit = () => {
               <div className="flex items-center mt-5">
                 <label className="w-1/5 text-lg opacity-50">Dates</label>
                 <input
-                  value={data.resume.education.universityDate}
+                  value={education.universityDate}
                   onChange={(e) =>
-                    setData({
-                      ...data,
-                      resume: {
-                        ...data.resume,
-                        education: {
-                          ...data.resume.education,
-                          universityDate: e.target.value,
-                        },
-                      },
+                    handleEditEducation(index, {
+                      ...education,
+                      universityDate: e.target.value,
+                    })
+                  }
+                  className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                  type="text"
+                ></input>
+              </div>
+              <div className="flex items-center mt-5">
+                <label className="w-1/5 text-lg opacity-50">GPA(Unweighted)</label>
+                <input
+                  value={education.universityGPA}
+                  onChange={(e) =>
+                    handleEditEducation(index, {
+                      ...education,
+                      universityGPA: e.target.value,
                     })
                   }
                   className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -707,24 +743,26 @@ const Edit = () => {
               <div className="flex items-center mt-5">
                 <label className="w-1/5 text-lg opacity-50">Detail</label>
                 <input
-                  value={data.resume.education.universityPara}
+                  value={education.universityPara}
                   onChange={(e) =>
-                    setData({
-                      ...data,
-                      resume: {
-                        ...data.resume,
-                        education: {
-                          ...data.resume.education,
-                          universityPara: e.target.value,
-                        },
-                      },
+                    handleEditEducation(index, {
+                      ...education,
+                      universityPara: e.target.value,
                     })
                   }
                   className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
                   type="text"
                 ></input>
               </div>
+              <hr className="my-5"/>
+              </div>
+              
+              ))}
+              <Button onClick={handleAddEducation} type="primary">
+                Add Education +
+              </Button>
             </div>
+            
             <hr className="my-10"></hr>
             <div className="mt-10">
               <div className="flex">
