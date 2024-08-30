@@ -90,31 +90,31 @@ const Edit = () => {
 
   // Socials Handler
 
-  const editSocials = (socialIndex, editSocial) => {
-    let copySocials = data.socials;
-    copySocials[socialIndex] = { ...editSocial };
-    setData({ ...data, socials: copySocials });
-  };
+  // const editSocials = (socialIndex, editSocial) => {
+  //   let copySocials = data.socials;
+  //   copySocials[socialIndex] = { ...editSocial };
+  //   setData({ ...data, socials: copySocials });
+  // };
 
-  const addSocials = () => {
-    setData({
-      ...data,
-      socials: [
-        ...data.socials,
-        {
-          id: uuidv4(),
-          title: "New Link",
-          link: "www.chetanverma.com",
-        },
-      ],
-    });
-  };
+  // const addSocials = () => {
+  //   setData({
+  //     ...data,
+  //     socials: [
+  //       ...data.socials,
+  //       {
+  //         id: uuidv4(),
+  //         title: "New Link",
+  //         link: "www.chetanverma.com",
+  //       },
+  //     ],
+  //   });
+  // };
 
-  const deleteSocials = (id) => {
-    const copySocials = data.socials;
-    copySocials = copySocials.filter((social) => social.id !== id);
-    setData({ ...data, socials: copySocials });
-  };
+  // const deleteSocials = (id) => {
+  //   const copySocials = data.socials;
+  //   copySocials = copySocials.filter((social) => social.id !== id);
+  //   setData({ ...data, socials: copySocials });
+  // };
 
   // Resume
 
@@ -212,12 +212,12 @@ const Edit = () => {
             >
               About
             </Button>
-            <Button
+            {/* <Button
               onClick={() => setCurrentTabs("SOCIAL")}
               type={currentTabs === "SOCIAL" && "primary"}
             >
               Social
-            </Button>
+            </Button> */}
             <Button
               onClick={() => setCurrentTabs("RESUME")}
               type={currentTabs === "RESUME" && "primary"}
@@ -521,7 +521,7 @@ const Edit = () => {
             ></textarea>
           </div>
         )}
-        {currentTabs === "SOCIAL" && (
+        {/* {currentTabs === "SOCIAL" && (
           <div className="mt-10">
             {data.socials.map((social, index) => (
               <>
@@ -573,7 +573,7 @@ const Edit = () => {
               </Button>
             </div>
           </div>
-        )}
+        )} */}
         {currentTabs === "RESUME" && (
           <div className="mt-10">
             <h1>Main</h1>
