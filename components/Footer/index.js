@@ -2,8 +2,9 @@ import React from "react";
 import Socials from "../Socials";
 import Link from "next/link";
 import Button from "../Button";
-
+import { useRouter } from "next/router";
 const Footer = ({}) => {
+  const router = useRouter();
   return (
     <>
       <div className="mt-5 laptop:mt-40 p-2 laptop:p-0">
@@ -16,7 +17,7 @@ const Footer = ({}) => {
             <h1 className="text-3xl tablet:text-4xl laptop:text-4xl laptopl:text-4xl text-bold">
               together
             </h1>
-            <Button type="primary">Schedule a call</Button>
+            <Button type="primary" onClick = {()=> router.push("/contact")}>Reach Out</Button>
             <div className="mt-10">
               <Socials />
             </div>

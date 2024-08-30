@@ -67,6 +67,7 @@ const Blog = ({ posts }) => {
         <Head>
           <title>Blog</title>
         </Head>
+        
         <div
           className={`container mx-auto mb-10 ${
             data.showCursor && "cursor-none"
@@ -80,6 +81,7 @@ const Blog = ({ posts }) => {
             >
               Blog.
             </h1>
+            <p className = "text-lg">This section contains blogs I've written. Expect to see a variety of topics including coding experiences, political viewpoints, and other fun content. </p>
             <div className="mt-10 grid grid-cols-1 mob:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 justify-between gap-10">
               {posts &&
                 posts.map((post) => (

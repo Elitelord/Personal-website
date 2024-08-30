@@ -11,7 +11,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const { name, showBlog, showResume } = data;
+  const { name, showBlog, showResume, showContact} = data;
 
   useEffect(() => {
     setMounted(true);
@@ -74,6 +74,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   {showBlog && (
                     <Button onClick={() => router.push("/blog")}>Blog</Button>
                   )}
+                  {showContact && (
+                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
+                  )}
                   {showResume && (
                     <Button
                       onClick={() =>
@@ -84,11 +87,11 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                     </Button>
                   )}
 
-                  <Button
+                  {/* <Button
                     onClick={() => window.open("mailto:hello@chetanverma.com")}
                   >
                     Contact
-                  </Button>
+                  </Button> */}
                 </div>
               ) : (
                 <div className="grid grid-cols-1">
@@ -97,6 +100,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   </Button>
                   {showBlog && (
                     <Button onClick={() => router.push("/blog")}>Blog</Button>
+                  )}
+                  {showContact && (
+                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
                   )}
                   {showResume && (
                     <Button
@@ -107,11 +113,11 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                     </Button>
                   )}
 
-                  <Button
+                  {/* <Button
                     onClick={() => window.open("mailto:elitelord3007@gmail.com")}
                   >
                     Contact
-                  </Button>
+                  </Button> */}
                 </div>
               )}
             </Popover.Panel>
@@ -136,6 +142,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
             {showBlog && (
               <Button onClick={() => router.push("/blog")}>Blog</Button>
             )}
+            {showContact && (
+                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
+              )}
             {showResume && (
               <Button
                 onClick={() => router.push("/resume")}
@@ -145,9 +154,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               </Button>
             )}
 
-            <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
+            {/* <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
               Contact
-            </Button>
+            </Button> */}
             {mounted && theme && data.darkMode && (
               <Button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -165,6 +174,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
             {showBlog && (
               <Button onClick={() => router.push("/blog")}>Blog</Button>
             )}
+            {showContact && (
+                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
+                  )}
             {showResume && (
               <Button
                 onClick={() => router.push("/resume")}
@@ -174,9 +186,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               </Button>
             )}
 
-            <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
+            {/* <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
               Contact
-            </Button>
+            </Button> */}
 
             {mounted && theme && data.darkMode && (
               <Button
