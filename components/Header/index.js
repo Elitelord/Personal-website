@@ -10,11 +10,17 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
+  const [isClient, setIsClient] = useState(false)
   const { name, showBlog, showResume, showContact} = data;
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
+    setIsClient(true);
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }
   }, []);
 
   return (
@@ -39,9 +45,12 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   >
                     <img
                       className="h-6"
-                      src={`/images/${
-                        theme === "dark" ? "moon.svg" : "sun.svg"
-                      }`}
+                      src={`/images/moon.svg'
+                      //  $ {
+                      //   theme === "dark" ? "moon.svg" : "sun.svg"
+                      // }`
+                    }
+                      alt = "theme"
                     ></img>
                   </Button>
                 )}

@@ -26,21 +26,7 @@ export default function Contact(){
     const [mount, setMount] = useState(false);
     // Handling Scroll
 
-  const handleWorkScroll = () => {
-    window.scrollTo({
-      top: workRef.current.offsetTop,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const handleAboutScroll = () => {
-    window.scrollTo({
-      top: aboutRef.current.offsetTop,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
+  
   useEffect(() => {
     setMount(true);
   }, []);
@@ -64,8 +50,7 @@ export default function Contact(){
 
       <div className="container mx-auto mb-10">
         <Header
-          handleWorkScroll={handleWorkScroll}
-          handleAboutScroll={handleAboutScroll}
+          
           isBlog={true}
         />
         <div className="laptop:mt-20 mt-10">

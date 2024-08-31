@@ -14,7 +14,7 @@ import { useTheme } from "next-themes";
 // Local Data
 import data from "../../data/portfolio.json";
 import Router, { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { ISOToDate, useIsomorphicLayoutEffect } from "../../utils";
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Field, Label, Switch } from '@headlessui/react';
@@ -22,6 +22,33 @@ import { Field, Label, Switch } from '@headlessui/react';
 
 
 export default function ContactForm(){
+    const [fname, setFName] = useState('')
+    const [email, setEmail] = useState('')
+    const [lname, setLName] = useState('')
+    const [reason, setReason] = useState('')
+    const [phone, setPhone] = useState('')
+    const [country, setCountry] = useState('')
+    const [message, setMessage] = useState('')
+   
+    const onSubmit= async (e)=>{
+      e.preventDefault()  
+      console.log("contact form data received")
+      try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            body: JSON.stringify({
+              fname, email, lname, reason, phone, country, message
+            }),
+            headers: {
+              'content-type': 'application/json'
+            }
+          })
+            
+          
+      } catch(err) {
+        console.error('Err', err)
+      }
+    }
     return(<>
     <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
       <div
@@ -42,7 +69,7 @@ export default function ContactForm(){
           Please reach out if you need help with anything coding related or if you have any questions
         </p>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form onSubmit = {onSubmit} action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
             <label htmlFor="first-name" className="block text-sm font-semibold leading-6 ">
@@ -50,6 +77,8 @@ export default function ContactForm(){
             </label>
             <div className="mt-2.5">
               <input
+                value = {fname}
+                onChange={(e)=> setFName(e.target.value)}
                 id="first-name"
                 name="first-name"
                 type="text"
@@ -64,6 +93,8 @@ export default function ContactForm(){
             </label>
             <div className="mt-2.5">
               <input
+              value = {lname}
+              onChange={(e)=> setLName(e.target.value)}
                 id="last-name"
                 name="last-name"
                 type="text"
@@ -78,6 +109,9 @@ export default function ContactForm(){
             </label>
             <div className="mt-2.5">
               <input
+              
+              value = {reason}
+              onChange={(e)=> setReason(e.target.value)}
                 id="Reason"
                 name="Reason"
                 type="text"
@@ -92,6 +126,8 @@ export default function ContactForm(){
             </label>
             <div className="mt-2.5">
               <input
+              value = {email}
+              onChange={(e)=> setEmail(e.target.value)}
                 id="email"
                 name="email"
                 type="email"
@@ -110,6 +146,9 @@ export default function ContactForm(){
                   Country
                 </label>
                 <select
+
+                value = {country}
+                onChange={(e)=> setCountry(e.target.value)}
                   id="country"
                   name="country"
                   className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
@@ -124,6 +163,8 @@ export default function ContactForm(){
                 />
               </div>
               <input
+              value = {phone}
+              onChange={(e)=> setPhone(e.target.value)}
                 id="phone-number"
                 name="phone-number"
                 type="tel"
@@ -138,11 +179,12 @@ export default function ContactForm(){
             </label>
             <div className="mt-2.5">
               <textarea
+              value = {message}
+              onChange={(e)=> setMessage(e.target.value)}
                 id="message"
                 name="message"
                 rows={4}
                 className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={''}
               />
             </div>
           </div>
