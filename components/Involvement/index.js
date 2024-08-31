@@ -17,7 +17,16 @@ const Involvement = ({name, position, dates, description, onClick }) => {
         {dates ? dates : "Dates"}
       </h2>
       <h2 className="text-xl opacity-50">
-        {description ? description : "Description"}
+      {description && description.length > 0 && (
+          <ul className="list-disc">
+            {description.map((bullet, index) => (
+              <li key={index} className="text-md my-1 opacity-70">
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        )}
+        {/* {description ? description : "Description"} */}
       </h2>
     </div>
   );

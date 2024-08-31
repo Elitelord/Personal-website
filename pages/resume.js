@@ -16,7 +16,7 @@ const Resume = () => {
   const theme = useTheme();
   const [mount, setMount] = useState(false);
 
-  useEffect(() => {
+  useEffect((router) => {
     setMount(true);
     if (!showResume) {
       router.push("/");
@@ -24,13 +24,13 @@ const Resume = () => {
   }, []);
   return (
     <>
-      {process.env.NODE_ENV === "development" && (
-        <div className="fixed bottom-6 right-6">
-          <Button onClick={() => router.push("/edit")} type={"primary"}>
-            Edit Resume
-          </Button>
-        </div>
-      )}
+      {/* {process.env.NODE_ENV === "development" && (
+        // <div className="fixed bottom-6 right-6">
+        //   <Button onClick={() => router.push("/edit")} type={"primary"}>
+        //     Edit Resume
+        //   </Button>
+        // </div>
+      )} */}
       {data.showCursor && <Cursor />}
       <div
         className={`container mx-auto mb-10 ${

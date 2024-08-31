@@ -16,11 +16,11 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
 
   useEffect(() => {
     setMounted(true);
-    setIsClient(true);
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
+    // setIsClient(true);
+    // const storedTheme = localStorage.getItem('theme');
+    // if (storedTheme) {
+    //   setTheme(storedTheme);
+    // }
   }, []);
 
   return (
