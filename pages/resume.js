@@ -57,7 +57,7 @@ const Resume = () => {
                 <h1 className="text-2xl font-bold">Experience</h1>
 
                 {resume.experiences.map(
-                  ({ id, dates, org, position, bullets }) => (
+                  ({ id, dates, url, org, position, bullets }) => (
                     <ProjectResume
                       key={id}
                       dates={dates}

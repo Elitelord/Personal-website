@@ -8,6 +8,7 @@ import Header from "../../components/Header";
 import data from "../../data/portfolio.json";
 import { ISOToDate, useIsomorphicLayoutEffect } from "../../utils";
 import { getAllPosts } from "../../utils/api";
+// import Image from "next/image"
 const Blog = ({ posts }) => {
   const showBlog = useRef(data.showBlog);
   const text = useRef();
@@ -81,7 +82,7 @@ const Blog = ({ posts }) => {
             >
               Blog.
             </h1>
-            <p className = "text-lg">This section contains blogs I've written. Expect to see a variety of topics including coding experiences, political viewpoints, and other fun content. </p>
+            <p className = "text-lg">This section contains blogs I&aposve written. Expect to see a variety of topics including coding experiences, political viewpoints, and other fun content. </p>
             <div className="mt-10 grid grid-cols-1 mob:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 justify-between gap-10">
               {posts &&
                 posts.map((post) => (
@@ -90,11 +91,12 @@ const Blog = ({ posts }) => {
                     key={post.slug}
                     onClick={() => Router.push(`/blog/${post.slug}`)}
                   >
-                    <Image
+                    <img
                       className="w-full h-60 rounded-lg shadow-lg object-cover"
                       src={post.image}
                       alt={post.title}
-                    ></Image>
+                      layout="fill"
+                    ></img>
                     <h2 className="mt-5 text-4xl">{post.title}</h2>
                     <p className="mt-2 opacity-50 text-lg">{post.preview}</p>
                     <span className="text-sm mt-5 opacity-25">
