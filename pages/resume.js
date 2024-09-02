@@ -71,7 +71,7 @@ const Resume = () => {
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Education</h1>
                 {resume.education.map(({universityName, universityDate, universityPara, universityGPA })=>(
-                <div className="mt-2">
+                <div className="mt-2" key = {universityName}>
                   <h2 className="text-lg">{universityName}</h2>
                   <h3 className="text-sm opacity-75">
                     {universityDate}
