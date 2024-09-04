@@ -46,9 +46,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                     <img
                       className="h-6"
                       src={`/images/moon.svg'
-                      //  $ {
-                      //   theme === "dark" ? "moon.svg" : "sun.svg"
-                      // }`
+                       $ {
+                        theme === "dark" ? "moon.svg" : "sun.svg"
+                      }`
                     }
                       alt = "theme"
                     ></img>

@@ -60,7 +60,7 @@ export default async function handler(req, res) {
     const { fname, lname, email, message, phone, reason, country } = req.body;
 
     // Basic input validation (you can add more robust validation here)
-    if (!fname || !lname || !email || !message || !phone || !reason || !country) {
+    if (!fname || !lname || !email || !message || !phone || !reason) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 

@@ -22,6 +22,8 @@ import { Field, Label, Switch } from '@headlessui/react';
 
 
 export default function ContactForm(){
+    const [isSubmitted, setSubmitted] = useState(false)
+
     const [fname, setFName] = useState('')
     const [email, setEmail] = useState('')
     const [lname, setLName] = useState('')
@@ -43,13 +45,16 @@ export default function ContactForm(){
               'content-type': 'application/json'
             }
           })
-            
+          if (res.status === 200){
+            setSubmitted(true)
+          }
           
       } catch(err) {
         console.error('Err', err)
       }
     }
     return(<>
+
     <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
       <div
         aria-hidden="true"
@@ -63,7 +68,10 @@ export default function ContactForm(){
           className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
         />
       </div>
-      <div className="mx-auto max-w-2xl text-center">
+      {isSubmitted ? (
+        <div className = "text-center font-semibold text-3xl">Success. Thanks for your message!</div>
+      ) :
+      (<div><div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">Contact form</h2>
         <p className="mt-2 text-lg leading-8 ">
           Please reach out if you need help with anything coding related or if you have any questions
@@ -195,10 +203,11 @@ export default function ContactForm(){
             type="submit"
             className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Let&aposs talk
+            Let's talk
           </button>
         </div>
       </form>
+    </div>)}
     </div>
     </>)
 }
