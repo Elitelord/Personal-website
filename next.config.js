@@ -9,6 +9,13 @@ const nextConfig = {
         port: '',
         pathname: '//c/portal/getImageAttachment?filename=communityimage.png&userId=2963607',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/photo-1620641788421-7a1c342ea42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
+       
+      },
     ],
   },
 }

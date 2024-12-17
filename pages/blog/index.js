@@ -8,6 +8,7 @@ import Header from "../../components/Header";
 import data from "../../data/portfolio.json";
 import { ISOToDate, useIsomorphicLayoutEffect } from "../../utils";
 import { getAllPosts } from "../../utils/api";
+import Image from "next/image"
 // import Image from "next/image"
 const Blog = ({ posts }) => {
   const showBlog = useRef(data.showBlog);
@@ -82,7 +83,7 @@ const Blog = ({ posts }) => {
             >
               Blog.
             </h1>
-            <p className = "text-lg">This section contains blogs I've written. Expect to see a variety of topics including coding experiences, political viewpoints, and other fun content. </p>
+            <p className = "text-lg">This section contains blogs I&apos;ve written. Expect to see a variety of topics including coding experiences, political viewpoints, and other fun content. </p>
             <div className="mt-10 grid grid-cols-1 mob:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 justify-between gap-10">
               {posts &&
                 posts.map((post) => (
