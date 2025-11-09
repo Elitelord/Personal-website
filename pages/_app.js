@@ -7,6 +7,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <ThemeProvider>
       <Component {...pageProps} />
+      <Analytics />
     </ThemeProvider>
   );
 };
