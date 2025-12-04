@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.3",
-    "@heroicons/react": "^2.1.5",
+    "@headlessui/react": "^2.2.9",
+    "@heroicons/react": "^2.2.0",
     "@mdx-js/loader": "^3.1.0",
     "@next/mdx": "^15.1.2",
     "@vercel/analytics": "^1.5.0",
@@ -21,13 +21,13 @@
     "gray-matter": "^4.0.3",
     "gsap": "^3.10.4",
     "mailgun.js": "^10.2.3",
-    "next": "15.5.3",
+    "next": "15.5.7",
     "next-themes": "^0.2.0",
     "parse-numeric-range": "^1.3.0",
     "postcss": "^8.4.13",
-    "react": "18.1.0",
+    "react": "^19.0.0",
     "react-datepicker": "^4.8.0",
-    "react-dom": "18.1.0",
+    "react-dom": "^19.0.0",
     "react-markdown": "^8.0.3",
     "react-syntax-highlighter": "^15.5.0",
     "react-textarea-autosize": "^8.3.4",
@@ -42,5 +42,23 @@
   "devDependencies": {
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6"
+  },
+  "overrides": {
+    "@headlessui/react": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "react-datepicker": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "custom-cursor-react": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "react-textarea-autosize": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }
