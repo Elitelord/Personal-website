@@ -10,7 +10,9 @@ import Head from "next/head";
 import Button from "../components/Button";
 import Link from "next/link";
 import Cursor from "../components/Cursor";
-import Involvement from "../components/Involvement"
+import Timeline from "../components/Timeline";
+import SkillsMarquee from "../components/SkillsMarquee";
+
 // Local Data
 import data from "../data/portfolio.json";
 
@@ -53,6 +55,7 @@ export default function Home() {
       {data.showCursor && <Cursor />}
       <Head>
         <title>{data.name}</title>
+        <link rel="icon" href="/favicon.svg" />
       </Head>
 
       <div className="gradient-circle"></div>
@@ -93,6 +96,21 @@ export default function Home() {
 
           <Socials className="mt-2 laptop:mt-5" />
         </div>
+
+        {/* Skills Marquee */}
+        <div className="mt-10 mb-10">
+          <SkillsMarquee />
+        </div>
+
+        {/* Timeline Section */}
+        <div className="mt-10 laptop:mt-30 p-2 laptop:p-0">
+          <h1 className="text-2xl text-bold">Experiences.</h1>
+          <Timeline
+            experiences={data.resume.experiences}
+            education={data.resume.education}
+          />
+        </div>
+
         <div className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={workRef}>
           <h1 className="text-2xl text-bold">Projects.</h1>
 
@@ -108,27 +126,11 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={workRef}>
-          <h1 className="text-2xl text-bold">Involvements</h1>
 
-          <div className="mt-5 laptop:mt-10 grid grid-cols-1 tablet:grid-cols-2 gap-4">
-            {data.resume.experiences.map((involvement) => (
-              <Involvement
-                key={involvement.id}
-                name={involvement.org}
-                position = {involvement.position}
-                dates = {involvement.dates}
-                description={involvement.bullets}
-                onClick={() => window.open(involvement.url)}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-10 laptop:mt-30 p-2 laptop:p-0">
+        {/* <div className="mt-10 laptop:mt-30 p-2 laptop:p-0">
           <h1 className="tablet:m-10 text-2xl text-bold">Services.</h1>
           <div className="mt-5 tablet:m-10 grid grid-cols-1 laptop:grid-cols-2 gap-6">
-            {data.services.map((service, index)  => (
+            {data.services.map((service, index) => (
               <ServiceCard
                 key={index}
                 name={service.title}
@@ -136,7 +138,7 @@ export default function Home() {
               />
             ))}
           </div>
-        </div>
+        </div> */}
         {/* This button should not go into production */}
         {process.env.NODE_ENV === "development" && (
           <div className="fixed bottom-5 right-5">
