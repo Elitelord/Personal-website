@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 
 const App = ({ Component, pageProps }) => {
   return (
-    <ThemeProvider>
+    <ThemeProvider attribute="class">
       <Component {...pageProps} />
       <Analytics />
     </ThemeProvider>
