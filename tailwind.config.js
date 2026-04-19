@@ -7,6 +7,13 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
+    container: {
+      padding: {
+        DEFAULT: '1rem',
+        tablet: '2rem',
+        laptop: '3rem',
+      },
+    },
     screens: {
       mob: "375px",
       tablet: "768px",

@@ -45,11 +45,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   >
                     <img
                       className="h-6"
-                      src={`/images/moon.svg'
-                       $ {
-                        theme === "dark" ? "moon.svg" : "sun.svg"
-                      }`
-                    }
+                      src={theme === "dark" ? "/images/moon.svg" : "/images/sun.svg"}
                       alt = "theme"
                     ></img>
                   </Button>
@@ -72,7 +68,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               </div>
             </div>
             <Popover.Panel
-              className="absolute right-0 z-10 w-11/12 p-4 backdrop-blur-md bg-white/80 dark:bg-black/70 shadow-lg border border-slate-200 dark:border-zinc-800 rounded-2xl"
+              className="absolute right-0 z-50 w-11/12 p-4 backdrop-blur-md bg-white/80 dark:bg-black/70 shadow-lg border border-slate-200 dark:border-zinc-800 rounded-2xl"
             >
               {!isBlog ? (
                 <div className="grid grid-cols-1">
@@ -108,9 +104,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   {showBlog && (
                     <Button onClick={() => router.push("/blog")}>Blog</Button>
                   )}
-                  {showContact && (
-                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
-                  )}
+
                   {showResume && (
                     <Button
                       onClick={() => router.push("/resume")}
@@ -132,7 +126,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
         )}
       </Popover>
       <div
-        className="mt-10 hidden flex-row items-center justify-between sticky top-0 z-10 tablet:flex p-2 rounded-xl backdrop-blur-lg bg-white/70 dark:bg-black/60 border border-transparent dark:border-zinc-800/50 shadow-sm transition-all duration-300 dark:text-white"
+        className="mt-10 hidden flex-row items-center justify-between sticky top-0 z-40 tablet:flex p-2 rounded-xl backdrop-blur-lg bg-white/70 dark:bg-black/60 border border-transparent dark:border-zinc-800/50 shadow-sm transition-all duration-300 dark:text-white"
       >
         <h1
           onClick={() => router.push("/")}
@@ -147,9 +141,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
             {showBlog && (
               <Button onClick={() => router.push("/blog")}>Blog</Button>
             )}
-            {showContact && (
-                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
-              )}
+
             {showResume && (
               <Button
                 onClick={() => router.push("/resume")}
@@ -179,9 +171,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
             {showBlog && (
               <Button onClick={() => router.push("/blog")}>Blog</Button>
             )}
-            {showContact && (
-                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
-                  )}
+
             {showResume && (
               <Button
                 onClick={() => router.push("/resume")}

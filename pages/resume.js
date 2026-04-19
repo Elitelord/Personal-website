@@ -2,36 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Cursor from "../components/Cursor";
 import Header from "../components/Header";
-import ProjectResume from "../components/ProjectResume";
 import Socials from "../components/Socials";
-import Button from "../components/Button";
-import { useTheme } from "next-themes";
-// Data
-import { name, showResume } from "../data/portfolio.json";
-import { resume } from "../data/portfolio.json";
+import Involvement from "../components/Involvement";
 import data from "../data/portfolio.json";
 
 const Resume = () => {
   const router = useRouter();
-  const theme = useTheme();
   const [mount, setMount] = useState(false);
+  const { name, showResume, resume } = data;
 
-  useEffect((router) => {
+  useEffect(() => {
     setMount(true);
     if (!showResume) {
       router.push("/");
     }
-  }, []);
+  }, [router, showResume]);
+
   return (
-    <>
-      {/* {process.env.NODE_ENV === "development" && (
-        // <div className="fixed bottom-6 right-6">
-        //   <Button onClick={() => router.push("/edit")} type={"primary"}>
-        //     Edit Resume
-        //   </Button>
-        // </div>
-      )} */}
+    <div className="relative min-h-screen z-0">
       {data.showCursor && <Cursor />}
+      
+      <div className="gradient-circle"></div>
+      <div className="gradient-circle-bottom"></div>
+
+      {/* Decorative Accents */}
+      <div className="accent-purple w-96 h-96 top-[5%] left-[2%]"></div>
+      <div className="accent-teal w-80 h-80 top-[40%] right-[2%]"></div>
+      <div className="accent-blue w-[500px] h-[500px] bottom-[10%] left-[10%]"></div>
+
       <div
         className={`container mx-auto mb-10 ${
           data.showCursor && "cursor-none"
@@ -40,99 +38,114 @@ const Resume = () => {
         <Header isBlog />
         {mount && (
           <div className="mt-10 w-full flex flex-col items-center">
-            <div
-              className={`w-full ${
-                mount && theme.theme === "dark" ? "bg-slate-800" : "bg-gray-50"
-              } max-w-4xl p-20 mob:p-5 desktop:p-20 rounded-lg shadow-sm`}
-            >
-              <h1 className="text-3xl font-bold">{name}</h1>
-              <h2 className="text-xl mt-5">{resume.tagline}</h2>
-              <h2 className="w-4/5 text-xl mt-5 opacity-50">
+            <div className="w-full max-w-4xl p-5 laptop:p-0">
+              <h1 className="text-4xl font-bold">{name}</h1>
+              <h2 className="text-2xl mt-3 text-blue-600 dark:text-blue-400">{resume.tagline}</h2>
+              <p className="w-full laptop:w-4/5 text-lg mt-5 opacity-70 leading-relaxed">
                 {resume.description}
-              </h2>
-              <div className="mt-2">
+              </p>
+              <div className="mt-6 mb-10">
                 <Socials />
               </div>
-              <div className="mt-5">
-                <h1 className="text-2xl font-bold">Experience</h1>
 
-                {resume.experiences.map(
-                  ({ id, dates, url, org, position, bullets }) => (
-                    <ProjectResume
-                      key={id}
-                      dates={dates}
-                      org = {org}
-                      position={position}
-                      bullets={bullets}
-                    ></ProjectResume>
-                  )
-                )}
-              </div>
-              <div className="mt-5">
-                <h1 className="text-2xl font-bold">Education</h1>
-                {resume.education.map(({universityName, universityDate, universityPara, universityGPA })=>(
-                <div className="mt-2" key = {universityName}>
-                  <h2 className="text-lg">{universityName}</h2>
-                  <h3 className="text-sm opacity-75">
-                    {universityDate}
-                  </h3>
-                  <p className="text-sm mt-2 opacity-50">
-                    {universityPara}
-                  </p>
-                  <p className="text-sm mt-2 opacity-50">
-                    {universityGPA} Unweighted GPA
-                  </p>
-                </div>
-              ))}
-              </div>
-              <div className="mt-5">
-                <h1 className="text-2xl font-bold">Skills</h1>
-                <div className="flex mob:flex-col desktop:flex-row justify-between">
-                  {resume.languages && (
-                    <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Languages</h2>
-                      <ul className="list-disc">
-                        {resume.languages.map((language, index) => (
-                          <li key={index} className="ml-5 py-2">
-                            {language}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {resume.frameworks && (
-                    <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Frameworks</h2>
-                      <ul className="list-disc">
-                        {resume.frameworks.map((framework, index) => (
-                          <li key={index} className="ml-5 py-2">
-                            {framework}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {resume.others && (
-                    <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Others</h2>
-                      <ul className="list-disc">
-                        {resume.others.map((other, index) => (
-                          <li key={index} className="ml-5 py-2">
-                            {other}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+              {/* Experience */}
+              <div className="mt-10">
+                <h1 className="text-3xl font-bold mb-6">Experience</h1>
+                <div className="flex flex-col gap-6">
+                  {resume.experiences.map((exp) => (
+                    <Involvement
+                      key={exp.id}
+                      name={exp.org}
+                      position={exp.position}
+                      dates={exp.dates}
+                      description={exp.bullets}
+                    />
+                  ))}
                 </div>
               </div>
+
+              {/* Education */}
+              <div className="mt-16">
+                <h1 className="text-3xl font-bold mb-6">Education</h1>
+                <div className="flex flex-col gap-6">
+                  {[...resume.education].reverse().map((edu, index) => (
+                    <div 
+                      key={index} 
+                      className="cursor-pointer overflow-hidden rounded-lg p-5 laptop:p-6 transition-all duration-300 hover:scale-[1.02] bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm hover:shadow-md"
+                    >
+                      <div className="flex flex-col laptop:flex-row justify-between items-start mb-3">
+                        <div>
+                          <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                            {edu.universityName}
+                          </h1>
+                          <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mt-1">
+                            {edu.universityPara}
+                          </h2>
+                        </div>
+                        <div className="mt-2 laptop:mt-0">
+                          <h2 className="text-sm font-medium opacity-60 bg-gray-200 dark:bg-zinc-800 px-3 py-1 rounded-full inline-block">
+                            {edu.universityDate}
+                          </h2>
+                        </div>
+                      </div>
+                      <div className="text-base opacity-70 mt-4 flex items-center gap-2">
+                        <span className="font-semibold px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
+                          GPA: {edu.universityGPA}
+                        </span>
+                        <span>Unweighted</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Skills */}
+              <div className="mt-16 mb-10">
+                <h1 className="text-3xl font-bold mb-6">Skills</h1>
+                <div className="flex flex-col gap-8">
+                  {/* Languages */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Languages</h2>
+                    <div className="flex flex-wrap gap-3">
+                      {data.skills.filter(s => s.category === "Language").map((skill, index) => (
+                        <span key={index} className="px-4 py-2 text-sm font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-full hover:shadow-md transition-all">
+                          {skill.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Frameworks */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Frameworks</h2>
+                    <div className="flex flex-wrap gap-3">
+                      {data.skills.filter(s => s.category === "Framework").map((skill, index) => (
+                        <span key={index} className="px-4 py-2 text-sm font-bold bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 rounded-full hover:shadow-md transition-all">
+                          {skill.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tools / Others */}
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Tools</h2>
+                    <div className="flex flex-wrap gap-3">
+                      {data.skills.filter(s => s.category === "Tool" || (s.category !== "Language" && s.category !== "Framework")).map((skill, index) => (
+                        <span key={index} className="px-4 py-2 text-sm font-bold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 rounded-full hover:shadow-md transition-all">
+                          {skill.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
             </div>
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
