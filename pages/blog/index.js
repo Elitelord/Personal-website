@@ -5,6 +5,7 @@ import { stagger } from "../../animations";
 import Button from "../../components/Button";
 import Cursor from "../../components/Cursor";
 import Header from "../../components/Header";
+import BackgroundAccents from "../../components/BackgroundAccents";
 import data from "../../data/portfolio.json";
 import { ISOToDate, useIsomorphicLayoutEffect } from "../../utils";
 import { getAllPosts } from "../../utils/api";
@@ -71,10 +72,13 @@ const Blog = ({ posts }) => {
         </Head>
         
         <div
-          className={`container mx-auto mb-10 ${
+          className={`relative container mx-auto mb-10 ${
             data.showCursor && "cursor-none"
           }`}
         >
+          <div className="gradient-circle"></div>
+          <div className="gradient-circle-bottom"></div>
+          <BackgroundAccents />
           <Header isBlog={true}></Header>
           <div className="mt-10">
             <h1

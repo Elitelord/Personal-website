@@ -1,8 +1,9 @@
 {
     "name": "Sameer",
     "headerTaglineOne": "Hey there",
-    "headerTaglineTwo": "My name is Sameer Agarwal, a Computer Science Student currently studying at the University of Texas at Austin.",
-    "headerTaglineThree": "Intern at NeuraCities and Verdatronics.",
+    "headerTaglineTwo": "Sameer Agarwal",
+    "headerTaglineThree": "Computer Science Student at UT Austin",
+    "headerTaglineFour": "Intern at NeuraCities and Verdatronics",
     "showCursor": false,
     "showBlog": true,
     "darkMode": true,

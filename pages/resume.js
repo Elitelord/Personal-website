@@ -4,6 +4,7 @@ import Cursor from "../components/Cursor";
 import Header from "../components/Header";
 import Socials from "../components/Socials";
 import Involvement from "../components/Involvement";
+import BackgroundAccents from "../components/BackgroundAccents";
 import data from "../data/portfolio.json";
 
 const Resume = () => {
@@ -25,10 +26,7 @@ const Resume = () => {
       <div className="gradient-circle"></div>
       <div className="gradient-circle-bottom"></div>
 
-      {/* Decorative Accents */}
-      <div className="accent-purple w-96 h-96 top-[5%] left-[2%]"></div>
-      <div className="accent-teal w-80 h-80 top-[40%] right-[2%]"></div>
-      <div className="accent-blue w-[500px] h-[500px] bottom-[10%] left-[10%]"></div>
+      <BackgroundAccents />
 
       <div
         className={`container mx-auto mb-10 ${
@@ -71,7 +69,7 @@ const Resume = () => {
                   {[...resume.education].reverse().map((edu, index) => (
                     <div 
                       key={index} 
-                      className="cursor-pointer overflow-hidden rounded-lg p-5 laptop:p-6 transition-all duration-300 hover:scale-[1.02] bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm hover:shadow-md"
+                      className="cursor-pointer overflow-hidden rounded-lg p-5 laptop:p-6 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md bg-gray-50/80 dark:bg-zinc-900/60 border border-gray-200/70 dark:border-zinc-800/50 shadow-sm hover:shadow-lg"
                     >
                       <div className="flex flex-col laptop:flex-row justify-between items-start mb-3">
                         <div>

@@ -15,10 +15,10 @@ const WorkCard = ({ img, name, description, onClick }) => {
       </div>
 
       <div className="mt-6 flex flex-col gap-2">
-        <h1 className="text-2xl laptop:text-3xl font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-fuchsia-400 transition-colors duration-300">
+        <h1 className="text-2xl laptop:text-3xl font-semibold tracking-tight text-slate-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-fuchsia-400 transition-colors duration-300">
           {name ? name : "Project Name"}
         </h1>
-        <h2 className="text-lg laptop:text-xl font-medium text-slate-600 dark:text-slate-300">
+        <h2 className="text-lg laptop:text-xl font-normal text-slate-500 dark:text-slate-400">
           {description ? description : "Description"}
         </h2>
       </div>

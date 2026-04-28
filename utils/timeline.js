@@ -27,18 +27,18 @@ export const monthDiff = (d1, d2) => {
 
 // Colors for distinct bars - theme-aware gradients
 const COLORS = [
-    "from-blue-500 to-blue-700 dark:from-blue-400 dark:to-blue-600",
-    "from-purple-500 to-purple-700 dark:from-purple-400 dark:to-purple-600",
-    "from-pink-500 to-pink-700 dark:from-pink-400 dark:to-pink-600",
-    "from-green-500 to-green-700 dark:from-green-400 dark:to-green-600",
-    "from-orange-500 to-orange-700 dark:from-orange-400 dark:to-orange-600",
-    "from-teal-500 to-teal-700 dark:from-teal-400 dark:to-teal-600",
-    "from-indigo-500 to-indigo-700 dark:from-indigo-400 dark:to-indigo-600",
-    "from-red-500 to-red-700 dark:from-red-400 dark:to-red-600",
-    "from-cyan-500 to-cyan-700 dark:from-cyan-400 dark:to-cyan-600",
-    "from-yellow-500 to-yellow-700 dark:from-yellow-400 dark:to-yellow-600",
-    "from-emerald-500 to-emerald-700 dark:from-emerald-400 dark:to-emerald-600",
-    "from-violet-500 to-violet-700 dark:from-violet-400 dark:to-violet-600",
+    "from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-800",
+    "from-purple-500 to-purple-700 dark:from-purple-600 dark:to-purple-800",
+    "from-pink-500 to-pink-700 dark:from-pink-600 dark:to-pink-800",
+    "from-green-500 to-green-700 dark:from-green-600 dark:to-green-800",
+    "from-orange-500 to-orange-700 dark:from-orange-600 dark:to-orange-800",
+    "from-teal-500 to-teal-700 dark:from-teal-600 dark:to-teal-800",
+    "from-indigo-500 to-indigo-700 dark:from-indigo-600 dark:to-indigo-800",
+    "from-red-500 to-red-700 dark:from-red-600 dark:to-red-800",
+    "from-cyan-500 to-cyan-700 dark:from-cyan-600 dark:to-cyan-800",
+    "from-yellow-500 to-yellow-700 dark:from-yellow-600 dark:to-yellow-800",
+    "from-emerald-500 to-emerald-700 dark:from-emerald-600 dark:to-emerald-800",
+    "from-violet-500 to-violet-700 dark:from-violet-600 dark:to-violet-800",
 ];
 
 // Simple hash function to generate consistent color index from string

@@ -129,29 +129,43 @@ body {
 .accent-purple {
   position: absolute;
   background-color: #a855f7;
-  filter: blur(120px);
-  opacity: 0.15;
-  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.35;
+  border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+  transform: rotate(-15deg) skewX(5deg);
 }
 
 .accent-teal {
   position: absolute;
   background-color: #14b8a6;
-  filter: blur(120px);
-  opacity: 0.15;
-  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.30;
+  border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+  transform: rotate(20deg) skewY(-8deg);
 }
 
 .accent-blue {
   position: absolute;
   background-color: #3b82f6;
-  filter: blur(140px);
-  opacity: 0.10;
-  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.30;
+  border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+  transform: rotate(35deg) skewX(-10deg);
+}
+
+.accent-pink {
+  position: absolute;
+  background: radial-gradient(ellipse, rgba(248, 107, 223, 1) 0%, rgba(107, 107, 248, 0.7) 100%);
+  filter: blur(110px);
+  opacity: 0.40;
+  border-radius: 60% 40% 45% 55% / 40% 60% 40% 60%;
+  pointer-events: none;
+  z-index: 0;
+  transform: rotate(-30deg) skewY(12deg);
 }
