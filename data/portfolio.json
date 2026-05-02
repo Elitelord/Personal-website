@@ -198,7 +198,7 @@
         "experiences": [
             {
                 "id": "1",
-                "dates": " 09/2025 - Present",
+                "dates": " 09/2025 - 04/2026",
                 "org": "NeuraCities",
                 "url": "https://neuracities.com/",
                 "position": "Software Engineer Intern",
@@ -277,16 +277,30 @@
         ],
         "education": [
             {
-                "id": "0",
+                "id": "0a",
                 "universityName": "Allen High School",
-                "universityDate": "8/2021-5/2023",
-                "universityPara": "Freshman and Sophomore",
+                "universityDate": "8/2021-5/2022",
+                "universityPara": "Freshman Year",
                 "universityGPA": "3.84"
             },
             {
-                "id": "1",
+                "id": "0b",
+                "universityName": "Allen High School",
+                "universityDate": "8/2022-5/2023",
+                "universityPara": "Sophomore Year",
+                "universityGPA": "3.84"
+            },
+            {
+                "id": "1a",
                 "universityName": "Texas Academy of Math and Science",
-                "universityDate": "8/2023-5/2025",
+                "universityDate": "8/2023-5/2024",
+                "universityPara": "Took classes at University of North Texas",
+                "universityGPA": "4.00"
+            },
+            {
+                "id": "1b",
+                "universityName": "Texas Academy of Math and Science",
+                "universityDate": "8/2024-5/2025",
                 "universityPara": "Took classes at University of North Texas",
                 "universityGPA": "4.00"
             },

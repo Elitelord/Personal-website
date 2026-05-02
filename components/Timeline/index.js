@@ -102,6 +102,34 @@ const HorizontalTimeline = ({ experiences, education }) => {
                         );
                     })}
 
+                    {/* Month Tick Marks */}
+                    {(() => {
+                        const ticks = [];
+                        const current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+                        const end = new Date(years[years.length - 1], 0, 1);
+                        while (current <= end) {
+                            // Skip January — already has a year gridline
+                            if (current.getMonth() !== 0 && current >= minDate) {
+                                const left = getLeftPos(current);
+                                ticks.push(
+                                    <div
+                                        key={`tick-${current.getFullYear()}-${current.getMonth()}`}
+                                        className="absolute opacity-25"
+                                        style={{
+                                            left: `${left}px`,
+                                            top: `${HEADER_HEIGHT - 18}px`,
+                                            width: '1px',
+                                            height: '8px',
+                                            backgroundColor: 'currentColor',
+                                        }}
+                                    />
+                                );
+                            }
+                            current.setMonth(current.getMonth() + 1);
+                        }
+                        return ticks;
+                    })()}
+
                     {/* Events */}
                     {events.map((event) => {
                         const left = getLeftPos(event.startDate);

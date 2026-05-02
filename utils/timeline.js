@@ -9,6 +9,16 @@ export const parseDate = (dateStr) => {
     return new Date();
 };
 
+// Parse an end date, shifting it to the start of the next month
+// so the bar extends through the entire final month.
+const parseEndDate = (dateStr) => {
+    const d = parseDate(dateStr);
+    if (dateStr && !dateStr.toLowerCase().includes("present")) {
+        d.setMonth(d.getMonth() + 1);
+    }
+    return d;
+};
+
 export const getYearFromDateStr = (dateRangeStr) => {
     if (!dateRangeStr) return new Date().getFullYear();
     const parts = dateRangeStr.split("-");
@@ -58,7 +68,7 @@ export const processTimelineData = (experiences, education) => {
         ...exp,
         type: "work",
         startDate: parseDate(exp.dates.split("-")[0].trim()),
-        endDate: parseDate(exp.dates.split("-")[1]?.trim() || "Present"),
+        endDate: parseEndDate(exp.dates.split("-")[1]?.trim() || "Present"),
     }));
 
     const eduEvents = education.map((edu) => ({
@@ -71,7 +81,7 @@ export const processTimelineData = (experiences, education) => {
         url: null,
         type: "education",
         startDate: parseDate(edu.universityDate.split("-")[0].trim()),
-        endDate: parseDate(edu.universityDate.split("-")[1]?.trim() || "Present"),
+        endDate: parseEndDate(edu.universityDate.split("-")[1]?.trim() || "Present"),
     }));
 
     let allEvents = [...workEvents, ...eduEvents];
@@ -88,39 +98,41 @@ export const processTimelineData = (experiences, education) => {
     // Pad the bounds slightly (e.g. 1 month before/after)
     minDate.setMonth(minDate.getMonth() - 2);
 
-    // 4. Assign Rows (Greedy Algorithm)
+    // 4. Assign Rows — Education first (top rows), then Work below
     const rows = []; // Array of Arrays (Time Slots occupied)
     // Each row tracks: [{ start, end }, ...]
 
-    allEvents = allEvents.map((event, index) => {
+    const assignRow = (event) => {
         let assignedRow = -1;
-
-        // Check existing rows for space
         for (let r = 0; r < rows.length; r++) {
-            // Check for overlap with ANY event in this row
             const hasOverlap = rows[r].some(slot => {
                 return (event.startDate < slot.end && event.endDate > slot.start);
             });
-
             if (!hasOverlap) {
                 assignedRow = r;
                 rows[r].push({ start: event.startDate, end: event.endDate });
                 break;
             }
         }
-
-        // If no row found, create new one
         if (assignedRow === -1) {
             assignedRow = rows.length;
             rows.push([{ start: event.startDate, end: event.endDate }]);
         }
-
         return {
             ...event,
             row: assignedRow,
-            color: COLORS[hashString(event.org) % COLORS.length], // Assign unique color based on org name
+            color: COLORS[hashString(event.org) % COLORS.length],
         };
-    });
+    };
+
+    // Process education events first so they occupy the top rows
+    const eduSorted = allEvents.filter(e => e.type === "education").sort((a, b) => a.startDate - b.startDate);
+    const workSorted = allEvents.filter(e => e.type !== "education").sort((a, b) => a.startDate - b.startDate);
+
+    const assignedEdu = eduSorted.map(assignRow);
+    const assignedWork = workSorted.map(assignRow);
+
+    allEvents = [...assignedEdu, ...assignedWork];
 
     const rowCount = rows.length;
 

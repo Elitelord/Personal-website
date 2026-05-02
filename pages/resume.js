@@ -66,34 +66,56 @@ const Resume = () => {
               <div className="mt-16">
                 <h1 className="text-3xl font-bold mb-6">Education</h1>
                 <div className="flex flex-col gap-6">
-                  {[...resume.education].reverse().map((edu, index) => (
-                    <div 
-                      key={index} 
-                      className="cursor-pointer overflow-hidden rounded-lg p-5 laptop:p-6 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md bg-gray-50/80 dark:bg-zinc-900/60 border border-gray-200/70 dark:border-zinc-800/50 shadow-sm hover:shadow-lg"
-                    >
-                      <div className="flex flex-col laptop:flex-row justify-between items-start mb-3">
-                        <div>
-                          <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-                            {edu.universityName}
-                          </h1>
-                          <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mt-1">
-                            {edu.universityPara}
-                          </h2>
+                  {(() => {
+                    // Group education entries by university name to avoid duplicates
+                    // from academic-year splits used for the timeline
+                    const grouped = [];
+                    const seen = new Map();
+                    [...resume.education].reverse().forEach((edu) => {
+                      if (seen.has(edu.universityName)) {
+                        const existing = seen.get(edu.universityName);
+                        // Combine date ranges
+                        const dates = [existing._allDates, edu.universityDate].flat();
+                        existing._allDates = dates;
+                        // Build combined date string from earliest start to latest end
+                        const starts = dates.map(d => d.split("-")[0].trim());
+                        const ends = dates.map(d => d.split("-")[1]?.trim() || "Present");
+                        existing.universityDate = `${starts[starts.length - 1]}-${ends[0]}`;
+                      } else {
+                        const entry = { ...edu, _allDates: [edu.universityDate] };
+                        seen.set(edu.universityName, entry);
+                        grouped.push(entry);
+                      }
+                    });
+                    return grouped.map((edu, index) => (
+                      <div 
+                        key={index} 
+                        className="cursor-pointer overflow-hidden rounded-lg p-5 laptop:p-6 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md bg-gray-50/80 dark:bg-zinc-900/60 border border-gray-200/70 dark:border-zinc-800/50 shadow-sm hover:shadow-lg"
+                      >
+                        <div className="flex flex-col laptop:flex-row justify-between items-start mb-3">
+                          <div>
+                            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                              {edu.universityName}
+                            </h1>
+                            <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mt-1">
+                              {edu.universityPara}
+                            </h2>
+                          </div>
+                          <div className="mt-2 laptop:mt-0">
+                            <h2 className="text-sm font-medium opacity-60 bg-gray-200 dark:bg-zinc-800 px-3 py-1 rounded-full inline-block">
+                              {edu.universityDate}
+                            </h2>
+                          </div>
                         </div>
-                        <div className="mt-2 laptop:mt-0">
-                          <h2 className="text-sm font-medium opacity-60 bg-gray-200 dark:bg-zinc-800 px-3 py-1 rounded-full inline-block">
-                            {edu.universityDate}
-                          </h2>
+                        <div className="text-base opacity-70 mt-4 flex items-center gap-2">
+                          <span className="font-semibold px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
+                            GPA: {edu.universityGPA}
+                          </span>
+                          <span>Unweighted</span>
                         </div>
                       </div>
-                      <div className="text-base opacity-70 mt-4 flex items-center gap-2">
-                        <span className="font-semibold px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
-                          GPA: {edu.universityGPA}
-                        </span>
-                        <span>Unweighted</span>
-                      </div>
-                    </div>
-                  ))}
+                    ));
+                  })()}
                 </div>
               </div>
 
