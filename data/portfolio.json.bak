@@ -5,30 +5,10 @@
     "headerTaglineThree": "Computer Science Student at UT Austin",
     "headerTaglineFour": "Intern at NeuraCities and Verdatronics",
     "showCursor": false,
-    "showBlog": false,
+    "showBlog": true,
     "darkMode": true,
     "showResume": true,
     "showContact": true,
-    "codingProfiles": {
-        "leetcode": {
-            "username": "elitelord",
-            "profileUrl": "https://leetcode.com/u/elitelord/"
-        },
-        "hackerrank": {
-            "username": "elitelord3007",
-            "profileUrl": "https://www.hackerrank.com/profile/elitelord3007",
-            "stars": [
-                { "domain": "Problem Solving", "stars": 3 },
-                { "domain": "React", "stars": 5 }
-            ],
-            "certifications": [
-                "Problem Solving (Basic)",
-                "Python (Basic)",
-                "Frontend Developer (React)",
-                "React (Basic)"
-            ]
-        }
-    },
     "skills": [
         {
             "name": "Java",
@@ -132,7 +112,7 @@
             "id": "318ca692-db63-447c-9a2d-66a88884784d",
             "title": "TaskManagerPlus",
             "description": "Personal Project, Windows Development with React, Tauri, and C++ DLL",
-            "imageSrc": "https://i.imgur.com/xdbr7IZ.png",
+            "imageSrc": "https://i.imgur.com/RG8AXVU.png",
             "url": "https://github.com/Elitelord/TaskManagerPlus"
         },
         {
@@ -261,10 +241,11 @@
                 "url": "https://tamsformers5212.github.io/Website/",
                 "position": "Programming Lead",
                 "bullets": [
-                    "Designed and implemented the team's robot software in C++ with WPILib and PathPlanner, building swerve drive control, PID-tuned elevator, arm, intake, and shooter subsystems, and Limelight-based vision auto-alignment and automatic shooting in both teleop and autonomous",
-                    "Owned electronics integration and wiring across robot iterations, hooking up the navX gyro, REV absolute encoders, beam-break and limit-switch sensors, and the power distribution panel to feed reliable feedback into the control loops",
-                    "Led a 3-person programming subteam over four seasons, managing Git branching workflows and mentoring new programmers in WPILib, control theory, and embedded debugging",
-                    "Drove team strategy, match scouting, and business operations including sponsorship outreach, budgeting, and competition logistics; team earned the Dean's List Award and finished as Event Finalist three times"
+                    "Participated in 3 different Robotics Competitions while in Robotics.",
+                    "Won 3 team awards during participation in Robotics Competitions.",
+                    "Learned how to use machinery and complete something with a team.",
+                    "Learned Programming and designed a majority of the robot's code.",
+                    "Led other programmers and taught them how to code. "
                 ]
             },
             {
@@ -274,10 +255,10 @@
                 "url": "https://www.lightbulbtutoring.org/",
                 "position": "Director ",
                 "bullets": [
-                    "Directed the org-wide tutoring program at a student-run nonprofit, growing the tutor team from 5 to 30 and serving over 100 students through training, scheduling, evaluation, and day-to-day support",
-                    "Designed and ran bimonthly workshops covering pedagogical strategies, common student misconceptions, and worked tutoring examples to upskill new and returning tutors",
-                    "Built scheduling and roster-management spreadsheets to coordinate the growing tutor base across simultaneous weekly classes, replacing ad-hoc tracking with a single source of truth",
-                    "Taught Math and English weekly to a 6th-grade class for a full year while overseeing the broader tutoring operation"
+                    "I help to manage over 30 tutors.",
+                    "I teach my own class of 2 students every week.",
+                    "I coordinate with other departments to keep tutoring running smoothly.",
+                    "I host workshops for tutors to improve their skills and also train new tutors"
                 ]
             },
             {
@@ -287,10 +268,10 @@
                 "position": "Head Website Developer",
                 "url": "https://dermalyze-next-webapp.vercel.app/",
                 "bullets": [
-                    "Led frontend development on a 4-person founding team, building and shipping the public-facing product website in React, Next.js, and TypeScript and deploying it on Vercel",
-                    "Integrated the team's in-house TensorFlow skin-condition classifier (trained on public skin-disease datasets) directly into the browser via JavaScript, surfacing acne, eczema, and other diagnoses through an interactive UI",
-                    "Designed survey and intake form flows that feed structured user responses back into the classifier to refine and contextualize each diagnosis with additional context",
-                    "Owned the architecture and UX of the diagnosis experience end-to-end, from initial photo upload through results explanation, with no auth or external backend beyond the bundled model"
+                    "Developed a dynamic website for the Dermalyze company.",
+                    "Learned and used React along with Next and Typescript to create the website.",
+                    "Implemented an AI image classification model on the website.",
+                    "Coded new features such as surveys and forms. "
                 ]
             }
         ],

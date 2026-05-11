@@ -13,6 +13,7 @@ import Cursor from "../components/Cursor";
 import Timeline from "../components/Timeline";
 import SkillsMarquee from "../components/SkillsMarquee";
 import BackgroundAccents from "../components/BackgroundAccents";
+import CodingProfiles from "../components/CodingProfiles";
 
 // Local Data
 import data from "../data/portfolio.json";
@@ -21,6 +22,7 @@ export default function Home() {
   // Ref
   const workRef = useRef();
   const aboutRef = useRef();
+  const experiencesRef = useRef();
   const textOne = useRef();
   const textTwo = useRef();
   const textThree = useRef();
@@ -38,6 +40,14 @@ export default function Home() {
   const handleAboutScroll = () => {
     window.scrollTo({
       top: aboutRef.current.offsetTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const handleExperiencesScroll = () => {
+    window.scrollTo({
+      top: experiencesRef.current.offsetTop,
       left: 0,
       behavior: "smooth",
     });
@@ -68,9 +78,10 @@ export default function Home() {
         <Header
           handleWorkScroll={handleWorkScroll}
           handleAboutScroll={handleAboutScroll}
+          handleExperiencesScroll={handleExperiencesScroll}
         />
-        <div className="laptop:mt-20 mt-10">
-          <div className="mt-5">
+        <div className="laptop:mt-14 mt-8">
+          <div className="mt-3">
             <p
               ref={textOne}
               className="text-base laptop:text-lg font-medium tracking-widest uppercase text-blue-600/80 dark:text-blue-400/60 mb-3"
@@ -85,30 +96,39 @@ export default function Home() {
             </h1>
             <h2
               ref={textThree}
-              className="mt-4 text-2xl tablet:text-3xl laptop:text-4xl laptopl:text-5xl font-normal text-gray-500 dark:text-gray-400 leading-snug"
+              className="mt-2 text-2xl tablet:text-3xl laptop:text-4xl laptopl:text-5xl font-normal text-gray-500 dark:text-gray-400 leading-snug"
             >
               {data.headerTaglineThree}
             </h2>
             {data.headerTaglineFour && (
               <p
                 ref={textFour}
-                className="mt-3 text-2xl tablet:text-3xl laptop:text-4xl laptopl:text-5xl font-light text-gray-400 dark:text-gray-500"
+                className="mt-1 text-2xl tablet:text-3xl laptop:text-4xl laptopl:text-5xl font-light text-gray-400 dark:text-gray-500"
               >
                 {data.headerTaglineFour}
               </p>
             )}
           </div>
 
-          <Socials className="mt-8 laptop:mt-10" />
+          <Socials className="mt-5 laptop:mt-7" />
         </div>
 
         {/* Skills Marquee */}
-        <div className="mt-10 mb-10">
+        <div className="mt-8 mb-8">
           <SkillsMarquee />
         </div>
 
+        {/* Coding Profiles Section */}
+        <div className="mt-10 laptop:mt-16 p-2 laptop:p-0">
+          <div className="flex items-center gap-4 mb-6">
+            <h1 className="text-2xl font-semibold tracking-tight text-gray-800 dark:text-gray-200">Problem Solving</h1>
+            <div className="h-1 lg:h-0.5 bg-gradient-to-r from-blue-500 to-transparent flex-1 opacity-50 rounded-full"></div>
+          </div>
+          <CodingProfiles />
+        </div>
+
         {/* Timeline Section */}
-        <div className="mt-10 laptop:mt-30 p-2 laptop:p-0">
+        <div className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={experiencesRef}>
           <div className="flex items-center gap-4 mb-6">
             <h1 className="text-2xl font-semibold tracking-tight text-gray-800 dark:text-gray-200">Experiences</h1>
             <div className="h-1 lg:h-0.5 bg-gradient-to-r from-blue-500 to-transparent flex-1 opacity-50 rounded-full"></div>
@@ -126,7 +146,9 @@ export default function Home() {
           </div>
 
           <div className="mt-5 laptop:mt-10 grid grid-cols-1 tablet:grid-cols-2 gap-4">
-            {data.projects.map((project) => (
+            {data.projects
+              .filter((project) => !["OnTime", "NotABum", "CurrencyConverter", "QuickNotes"].includes(project.title.trim()))
+              .map((project) => (
               <WorkCard
                 key={project.id}
                 img={project.imageSrc}
