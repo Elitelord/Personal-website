@@ -3,7 +3,7 @@
     "headerTaglineOne": "Hey there",
     "headerTaglineTwo": "Sameer Agarwal",
     "headerTaglineThree": "Computer Science Student at UT Austin",
-    "headerTaglineFour": "Intern at NeuraCities and Verdatronics",
+    "headerTaglineFour": "Intern at Alpha AI Engineering",
     "showCursor": false,
     "showBlog": false,
     "darkMode": true,
@@ -217,6 +217,14 @@
         "description": "Experienced Software Engineer Intern at NeuraCities. Proficient in Java, C++, Python, and frameworks such as React and NextJs",
         "experiences": [
             {
+                "id": "7",
+                "dates": "06/2026 - Present",
+                "org": "Alpha AI Engineering",
+                "url": "https://alphaaiengineering.com/",
+                "position": "AI Engineer Intern",
+                "bullets": []
+            },
+            {
                 "id": "1",
                 "dates": " 09/2025 - 04/2026",
                 "org": "NeuraCities",
@@ -231,7 +239,7 @@
             },
             {
                 "id": "2",
-                "dates": " 11/2025 - Present",
+                "dates": " 11/2025 - 04/2026",
                 "org": "Verdatronics",
                 "url": "https://temp-qutkivblyqmzycokhymc.webadorsite.com/",
                 "position": "Software Developer Intern",
