@@ -25,18 +25,18 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
 
   return (
     <>
-      <Popover className="block tablet:hidden mt-5">
+      <Popover className="block tablet:hidden sticky top-0 z-50 mt-5 p-2 rounded-xl backdrop-blur-lg bg-white/70 dark:bg-black/60 border border-transparent dark:border-zinc-800/50 shadow-sm transition-all duration-300">
         {({ open }) => (
           <>
             <div className="flex items-center justify-between p-2 laptop:p-0">
               <h1
                 onClick={() => router.push("/")}
-                className="font-medium p-2 laptop:p-0 link"
+                className="font-medium p-2 laptop:p-0 link text-gray-900 dark:text-white"
               >
                 {name}.
               </h1>
 
-              <div className="flex items-center">
+              <div className="flex items-center gap-2">
                 {data.darkMode && (
                   <Button
                     onClick={() =>
@@ -46,32 +46,29 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
                     <img
                       className="h-6"
                       src={theme === "dark" ? "/images/moon.svg" : "/images/sun.svg"}
-                      alt = "theme"
+                      alt="theme"
                     ></img>
                   </Button>
                 )}
 
-                <Popover.Button>
-                  <img
-                    className="h-5"
-                    src={`/images/${
-                      !open
-                        ? theme === "dark"
-                          ? "menu-white.svg"
-                          : "menu.svg"
-                        : theme === "light"
-                        ? "cancel.svg"
-                        : "cancel-white.svg"
-                    }`}
-                  ></img>
+                <Popover.Button className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
+                  {open ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                  )}
                 </Popover.Button>
               </div>
             </div>
             <Popover.Panel
-              className="absolute right-0 z-50 w-11/12 p-4 backdrop-blur-md bg-white/80 dark:bg-black/70 shadow-lg border border-slate-200 dark:border-zinc-800 rounded-2xl"
+              className="absolute inset-x-0 mx-auto z-50 w-[95%] mt-2 p-4 backdrop-blur-xl bg-white/90 dark:bg-black/90 shadow-2xl border border-slate-200 dark:border-zinc-800 rounded-2xl"
             >
               {!isBlog ? (
-                <div className="grid grid-cols-1">
+                <div className="grid grid-cols-1 gap-2">
                   <Button onClick={handleExperiencesScroll}>Experiences</Button>
                   <Button onClick={handleWorkScroll}>Projects</Button>
                   <Button onClick={handleAboutScroll}>About</Button>
@@ -79,33 +76,24 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
                     <Button onClick={() => router.push("/blog")}>Blog</Button>
                   )}
                   {showContact && (
-                    <Button onClick = {()=> router.push("/contact")}>Contact</Button>
+                    <Button onClick={() => router.push("/contact")}>Contact</Button>
                   )}
                   {showResume && (
                     <Button
-                      onClick={() =>
-                        window.open("mailto:hello@chetanverma.com")
-                      }
+                      onClick={() => router.push("/resume")}
                     >
                       Resume
                     </Button>
                   )}
-
-                  {/* <Button
-                    onClick={() => window.open("mailto:hello@chetanverma.com")}
-                  >
-                    Contact
-                  </Button> */}
                 </div>
               ) : (
-                <div className="grid grid-cols-1">
+                <div className="grid grid-cols-1 gap-2">
                   <Button onClick={() => router.push("/")} classes="first:ml-1">
                     Home
                   </Button>
                   {showBlog && (
                     <Button onClick={() => router.push("/blog")}>Blog</Button>
                   )}
-
                   {showResume && (
                     <Button
                       onClick={() => router.push("/resume")}
@@ -114,12 +102,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
                       Resume
                     </Button>
                   )}
-
-                  {/* <Button
-                    onClick={() => window.open("mailto:elitelord3007@gmail.com")}
-                  >
-                    Contact
-                  </Button> */}
+                  {showContact && (
+                    <Button onClick={() => router.push("/contact")}>Contact</Button>
+                  )}
                 </div>
               )}
             </Popover.Panel>

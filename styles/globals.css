@@ -8,9 +8,10 @@
   font-family: "Hind";
 }
 
-body {
+html, body {
   @apply dark:bg-black dark:text-white;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
 @keyframes scroll {

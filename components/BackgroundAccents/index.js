@@ -2,7 +2,7 @@ import React from "react";
 
 const BackgroundAccents = () => {
   return (
-    <>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       {/* Decorative Accents — abstract shapes scattered throughout */}
       {/* Upper area */}
       <div className="accent-pink w-[500px] h-[300px] top-[5%] right-[5%]"></div>
@@ -16,7 +16,7 @@ const BackgroundAccents = () => {
       {/* Lower area */}
       <div className="accent-teal w-[500px] h-[320px] top-[76%] right-[5%]"></div>
       <div className="accent-purple w-[400px] h-[250px] top-[90%] left-[0%]"></div>
-    </>
+    </div>
   );
 };
 
