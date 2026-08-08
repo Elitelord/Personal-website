@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import Header from "../components/Header";
 import { v4 as uuidv4 } from "uuid";
 import { useTheme } from "next-themes";
+import { useHiddenPageRedirect } from "../utils/useHiddenPageRedirect";
 
 // Data
 import yourData from "../data/portfolio.json";
@@ -13,6 +14,9 @@ const Edit = () => {
   const [data, setData] = useState(yourData);
   const [currentTabs, setCurrentTabs] = useState("HEADER");
   const { theme } = useTheme();
+  // This is a local authoring tool — saving already refuses outside dev, but the
+  // page itself was still reachable in production.
+  const visible = useHiddenPageRedirect(process.env.NODE_ENV === "development");
 
   const saveData = () => {
     if (process.env.NODE_ENV === "development") {
@@ -172,6 +176,9 @@ const Edit = () => {
       },
     });
   }
+
+  if (!visible) return null;
+
   return (
     <div className={`container mx-auto ${data.showCursor && "cursor-none"}`}>
       <Header isBlog></Header>
@@ -807,7 +814,6 @@ const Edit = () => {
                   ))}
                   <Button
                     type="primary"
-                    classes="hover:scale-100"
                     onClick={() =>
                       setData({
                         ...data,
@@ -874,7 +880,6 @@ const Edit = () => {
                       })
                     }
                     type="primary"
-                    classes="hover:scale-100"
                   >
                     Add +
                   </Button>
@@ -932,7 +937,6 @@ const Edit = () => {
                       })
                     }
                     type="primary"
-                    classes="hover:scale-100"
                   >
                     Add +
                   </Button>

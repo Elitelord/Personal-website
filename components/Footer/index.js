@@ -3,6 +3,7 @@ import Socials from "../Socials";
 import Link from "next/link";
 import Button from "../Button";
 import { useRouter } from "next/router";
+import data from "../../data/portfolio.json";
 const Footer = ({}) => {
   const router = useRouter();
   return (
@@ -17,7 +18,11 @@ const Footer = ({}) => {
             <h1 className="text-3xl tablet:text-4xl laptop:text-4xl laptopl:text-4xl text-bold">
               together
             </h1>
-            <Button type="primary" onClick = {()=> router.push("/contact")}>Reach Out</Button>
+            {data.showContact && (
+              <Button type="primary" onClick={() => router.push("/contact")}>
+                Reach Out
+              </Button>
+            )}
             <div className="mt-10">
               <Socials />
             </div>

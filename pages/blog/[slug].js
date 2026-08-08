@@ -5,6 +5,7 @@ import ContentSection from "../../components/ContentSection";
 import Footer from "../../components/Footer";
 import Head from "next/head";
 import { useIsomorphicLayoutEffect } from "../../utils";
+import { useHiddenPageRedirect } from "../../utils/useHiddenPageRedirect";
 import { stagger } from "../../animations";
 import Button from "../../components/Button";
 import BlogEditor from "../../components/BlogEditor";
@@ -17,10 +18,16 @@ const BlogPost = ({ post }) => {
   const textOne = useRef();
   const textTwo = useRef();
   const router = useRouter();
+  // Posts are statically generated, so without this the individual post URLs
+  // stay reachable even while the blog is hidden.
+  const visible = useHiddenPageRedirect(data.showBlog);
 
   useIsomorphicLayoutEffect(() => {
+    if (!visible) return;
     stagger([textOne.current, textTwo.current], { y: 30 }, { y: 0 });
-  }, []);
+  }, [visible]);
+
+  if (!visible) return null;
 
   return (
     <>
@@ -38,7 +45,7 @@ const BlogPost = ({ post }) => {
         <Header isBlog={true} />
         <div className="mt-10 flex flex-col">
           <img
-            className="w-full h-96 rounded-lg shadow-lg object-cover"
+            className="w-full h-96 rounded-control shadow-lg object-cover"
             src={post.image}
             alt={post.title}
           ></img>

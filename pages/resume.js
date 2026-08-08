@@ -4,29 +4,33 @@ import Cursor from "../components/Cursor";
 import Header from "../components/Header";
 import Socials from "../components/Socials";
 import Involvement from "../components/Involvement";
-import BackgroundAccents from "../components/BackgroundAccents";
+import { useHiddenPageRedirect } from "../utils/useHiddenPageRedirect";
 import data from "../data/portfolio.json";
+
+const SKILL_GROUPS = [
+  { label: "Languages", match: (s) => s.category === "Language" },
+  { label: "Frameworks", match: (s) => s.category === "Framework" },
+  {
+    label: "Tools",
+    match: (s) => s.category !== "Language" && s.category !== "Framework",
+  },
+];
 
 const Resume = () => {
   const router = useRouter();
   const [mount, setMount] = useState(false);
   const { name, showResume, resume } = data;
+  const visible = useHiddenPageRedirect(showResume);
 
   useEffect(() => {
     setMount(true);
-    if (!showResume) {
-      router.push("/");
-    }
-  }, [router, showResume]);
+  }, []);
+
+  if (!visible) return null;
 
   return (
     <div className="relative min-h-screen z-0">
       {data.showCursor && <Cursor />}
-      
-      <div className="gradient-circle"></div>
-      <div className="gradient-circle-bottom"></div>
-
-      <BackgroundAccents />
 
       <div
         className={`container mx-auto mb-10 ${
@@ -36,9 +40,10 @@ const Resume = () => {
         <Header isBlog />
         {mount && (
           <div className="mt-10 w-full flex flex-col items-center">
-            <div className="w-full max-w-4xl p-5 laptop:p-0">
-              <h1 className="text-4xl font-bold">{name}</h1>
-              <h2 className="text-2xl mt-3 text-blue-600 dark:text-blue-400">{resume.tagline}</h2>
+            {/* Horizontal gutters come from the page container, so no padding here. */}
+            <div className="w-full max-w-4xl">
+              <h1 className="text-4xl font-semibold tracking-tight">{name}</h1>
+              <h2 className="text-xl tablet:text-2xl mt-2 text-blue-600 dark:text-blue-400">{resume.tagline}</h2>
               <p className="w-full laptop:w-4/5 text-lg mt-5 opacity-70 leading-relaxed">
                 {resume.description}
               </p>
@@ -48,8 +53,10 @@ const Resume = () => {
 
               {/* Experience */}
               <div className="mt-10">
-                <h1 className="text-3xl font-bold mb-6">Experience</h1>
-                <div className="flex flex-col gap-6">
+                <h2 className="font-mono text-xs uppercase tracking-[0.15em] text-gray-400 dark:text-zinc-500 mb-2">
+                  Experience
+                </h2>
+                <div className="border-t border-gray-200 dark:border-zinc-800">
                   {resume.experiences.map((exp) => (
                     <Involvement
                       key={exp.id}
@@ -64,8 +71,10 @@ const Resume = () => {
 
               {/* Education */}
               <div className="mt-16">
-                <h1 className="text-3xl font-bold mb-6">Education</h1>
-                <div className="flex flex-col gap-6">
+                <h2 className="font-mono text-xs uppercase tracking-[0.15em] text-gray-400 dark:text-zinc-500 mb-2">
+                  Education
+                </h2>
+                <div className="border-t border-gray-200 dark:border-zinc-800">
                   {(() => {
                     // Group education entries by university name to avoid duplicates
                     // from academic-year splits used for the timeline
@@ -88,77 +97,50 @@ const Resume = () => {
                       }
                     });
                     return grouped.map((edu, index) => (
-                      <div 
-                        key={index} 
-                        className="cursor-pointer overflow-hidden rounded-lg p-5 laptop:p-6 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md bg-gray-50/80 dark:bg-zinc-900/60 border border-gray-200/70 dark:border-zinc-800/50 shadow-sm hover:shadow-lg"
+                      <Involvement
+                        key={index}
+                        name={edu.universityName}
+                        position={edu.universityPara}
+                        dates={edu.universityDate}
                       >
-                        <div className="flex flex-col laptop:flex-row justify-between items-start mb-3">
-                          <div>
-                            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-                              {edu.universityName}
-                            </h1>
-                            <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mt-1">
-                              {edu.universityPara}
-                            </h2>
-                          </div>
-                          <div className="mt-2 laptop:mt-0">
-                            <h2 className="text-sm font-medium opacity-60 bg-gray-200 dark:bg-zinc-800 px-3 py-1 rounded-full inline-block">
-                              {edu.universityDate}
-                            </h2>
-                          </div>
-                        </div>
-                        <div className="text-base opacity-70 mt-4 flex items-center gap-2">
-                          <span className="font-semibold px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
-                            GPA: {edu.universityGPA}
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-sm text-gray-700 dark:text-gray-300">
+                            GPA {edu.universityGPA}
                           </span>
-                          <span>Unweighted</span>
+                          <span className="text-sm opacity-60">Unweighted</span>
                         </div>
-                      </div>
+                      </Involvement>
                     ));
                   })()}
                 </div>
               </div>
 
-              {/* Skills */}
+              {/* Skills — laid out as a spec sheet. The category label carries the
+                  grouping, so the per-item color coding used elsewhere would be
+                  redundant here. */}
               <div className="mt-16 mb-10">
-                <h1 className="text-3xl font-bold mb-6">Skills</h1>
-                <div className="flex flex-col gap-8">
-                  {/* Languages */}
-                  <div>
-                    <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Languages</h2>
-                    <div className="flex flex-wrap gap-3">
-                      {data.skills.filter(s => s.category === "Language").map((skill, index) => (
-                        <span key={index} className="px-4 py-2 text-sm font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-full hover:shadow-md transition-all">
-                          {skill.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Frameworks */}
-                  <div>
-                    <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Frameworks</h2>
-                    <div className="flex flex-wrap gap-3">
-                      {data.skills.filter(s => s.category === "Framework").map((skill, index) => (
-                        <span key={index} className="px-4 py-2 text-sm font-bold bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800 rounded-full hover:shadow-md transition-all">
-                          {skill.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Tools / Others */}
-                  <div>
-                    <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Tools</h2>
-                    <div className="flex flex-wrap gap-3">
-                      {data.skills.filter(s => s.category === "Tool" || (s.category !== "Language" && s.category !== "Framework")).map((skill, index) => (
-                        <span key={index} className="px-4 py-2 text-sm font-bold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 rounded-full hover:shadow-md transition-all">
-                          {skill.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <h2 className="font-mono text-xs uppercase tracking-[0.15em] text-gray-400 dark:text-zinc-500 mb-2">
+                  Skills
+                </h2>
+                <dl className="border-t border-gray-200 dark:border-zinc-800">
+                  {SKILL_GROUPS.map(({ label, match }) => {
+                    const items = data.skills.filter(match);
+                    if (!items.length) return null;
+                    return (
+                      <div
+                        key={label}
+                        className="grid grid-cols-1 tablet:grid-cols-[9rem_1fr] gap-x-8 gap-y-1 py-4 border-b border-gray-200 dark:border-zinc-800"
+                      >
+                        <dt className="font-mono text-xs uppercase tracking-[0.15em] text-gray-400 dark:text-zinc-500 pt-0.5">
+                          {label}
+                        </dt>
+                        <dd className="font-mono text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                          {items.map((s) => s.name).join(", ")}
+                        </dd>
+                      </div>
+                    );
+                  })}
+                </dl>
               </div>
               
             </div>

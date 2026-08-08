@@ -5,27 +5,26 @@ import { stagger } from "../../animations";
 import Button from "../../components/Button";
 import Cursor from "../../components/Cursor";
 import Header from "../../components/Header";
-import BackgroundAccents from "../../components/BackgroundAccents";
 import data from "../../data/portfolio.json";
 import { ISOToDate, useIsomorphicLayoutEffect } from "../../utils";
+import { useHiddenPageRedirect } from "../../utils/useHiddenPageRedirect";
 import { getAllPosts } from "../../utils/api";
 import Image from "next/image"
 // import Image from "next/image"
 const Blog = ({ posts }) => {
-  const showBlog = useRef(data.showBlog);
+  const showBlog = useHiddenPageRedirect(data.showBlog);
   const text = useRef();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
   useIsomorphicLayoutEffect(() => {
+    if (!showBlog) return;
     stagger(
       [text.current],
       { y: 40, x: -10, transform: "scale(0.95) skew(10deg)" },
       { y: 0, x: 0, transform: "scale(1)" }
     );
-    if (showBlog.current) stagger([text.current], { y: 30 }, { y: 0 });
-    else router.push("/");
-  }, []);
+  }, [showBlog]);
 
   useEffect(() => {
     setMounted(true);
@@ -64,7 +63,7 @@ const Blog = ({ posts }) => {
     }
   };
   return (
-    showBlog.current && (
+    showBlog && (
       <>
         {data.showCursor && <Cursor />}
         <Head>
@@ -76,9 +75,6 @@ const Blog = ({ posts }) => {
             data.showCursor && "cursor-none"
           }`}
         >
-          <div className="gradient-circle"></div>
-          <div className="gradient-circle-bottom"></div>
-          <BackgroundAccents />
           <Header isBlog={true}></Header>
           <div className="mt-10">
             <h1
@@ -97,7 +93,7 @@ const Blog = ({ posts }) => {
                     onClick={() => Router.push(`/blog/${post.slug}`)}
                   >
                     <img
-                      className="w-full h-60 rounded-lg shadow-lg object-cover"
+                      className="w-full h-60 rounded-control shadow-lg object-cover"
                       src={post.image}
                       alt={post.title}
                       layout="fill"

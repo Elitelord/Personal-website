@@ -1,37 +1,38 @@
 import React from "react";
 
-const Involvement = ({ name, position, dates, description, onClick }) => {
+// A spec-sheet row rather than a card: dates in a fixed mono column on the left,
+// everything else on the right, separated by hairlines. Matches the Skills list
+// on the resume page. Collapses to a single column below `tablet`, where the
+// date sits above the org name.
+const Involvement = ({ name, position, dates, description, onClick, children }) => {
   return (
     <div
-      className="cursor-pointer overflow-hidden rounded-lg p-5 laptop:p-6 transition-all duration-300 hover:scale-[1.02] backdrop-blur-md bg-gray-50/80 dark:bg-zinc-900/60 border border-gray-200/70 dark:border-zinc-800/50 shadow-sm hover:shadow-lg"
+      className={`grid grid-cols-1 tablet:grid-cols-[9rem_1fr] gap-x-8 gap-y-1 py-6 border-b border-gray-200 dark:border-zinc-800 ${
+        onClick ? "cursor-pointer" : ""
+      }`}
       onClick={onClick}
     >
-      <div className="flex flex-col laptop:flex-row justify-between items-start mb-3">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-            {name ? name : "Involvement Name"}
-          </h1>
-          <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mt-1">
-            {position ? position : "Involvement Position"}
-          </h2>
-        </div>
-        <div className="mt-2 laptop:mt-0">
-          <h2 className="text-sm font-medium opacity-60 bg-gray-200 dark:bg-zinc-800 px-3 py-1 rounded-full inline-block">
-            {dates ? dates : "Dates"}
-          </h2>
-        </div>
+      <div className="font-mono text-xs text-gray-400 dark:text-zinc-500 tablet:pt-1.5 whitespace-nowrap">
+        {dates ? dates : "Dates"}
       </div>
 
-      <div className="text-base opacity-70 mt-4">
+      <div>
+        <h3 className="text-lg laptop:text-xl font-semibold text-gray-900 dark:text-gray-100 leading-snug">
+          {name ? name : "Involvement Name"}
+        </h3>
+        <p className="text-sm text-gray-500 dark:text-zinc-400 mt-0.5">
+          {position ? position : "Involvement Position"}
+        </p>
+
         {description && description.length > 0 && (
-          <ul className="list-disc ml-5 space-y-2">
+          <ul className="list-disc ml-4 mt-3 space-y-1.5 text-sm leading-relaxed text-gray-600 dark:text-gray-400 marker:text-gray-300 dark:marker:text-zinc-600">
             {description.map((bullet, index) => (
-              <li key={index} className="leading-relaxed">
-                {bullet}
-              </li>
+              <li key={index}>{bullet}</li>
             ))}
           </ul>
         )}
+
+        {children && <div className="mt-3">{children}</div>}
       </div>
     </div>
   );

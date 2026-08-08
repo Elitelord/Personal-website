@@ -37,7 +37,7 @@ const SkillsMarquee = () => {
                 {skills.map((skill, index) => (
                     <div
                         key={index}
-                        className={`text-lg font-bold whitespace-nowrap transition-colors ${getTextColors(skill.category)}`}
+                        className={`font-mono text-base font-medium whitespace-nowrap ${getTextColors(skill.category)}`}
                     >
                         {skill.name}
                     </div>

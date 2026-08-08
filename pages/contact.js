@@ -16,21 +16,22 @@ import data from "../data/portfolio.json";
 import Router, { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { ISOToDate, useIsomorphicLayoutEffect } from "../utils";
+import { useHiddenPageRedirect } from "../utils/useHiddenPageRedirect";
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Field, Label, Switch } from '@headlessui/react';
 import ContactForm from "../components/ContactForm";
-import BackgroundAccents from "../components/BackgroundAccents";
 export default function Contact(){
     const [agreed, setAgreed] = useState(false)
     const theme = useTheme();
     const router = useRouter();
     const [mount, setMount] = useState(false);
-    // Handling Scroll
+    const visible = useHiddenPageRedirect(data.showContact);
 
-  
   useEffect(() => {
     setMount(true);
   }, []);
+
+  if (!visible) return null;
 
 //   useIsomorphicLayoutEffect(() => {
 //     stagger(
@@ -45,11 +46,6 @@ export default function Contact(){
       <Head>
         <title>{data.name}</title>
       </Head>
-
-      <div className="gradient-circle"></div>
-      <div className="gradient-circle-bottom"></div>
-
-      <BackgroundAccents />
 
       <div className="container mx-auto mb-10">
         <Header

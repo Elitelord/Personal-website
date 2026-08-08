@@ -55,30 +55,18 @@ export default function ContactForm(){
     }
     return(<>
 
-    <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
-      >
-        <div
-          style={{
-            clipPath:
-              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-          }}
-          className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-        />
-      </div>
+    <div className="isolate px-2 py-16 tablet:px-6 tablet:py-24">
       {isSubmitted ? (
         <div className = "text-center font-semibold text-3xl">Success. Thanks for your message!</div>
       ) :
       (<div><div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">Contact form</h2>
+        <h2 className="text-3xl font-bold tracking-tight tablet:text-4xl">Contact form</h2>
         <p className="mt-2 text-lg leading-8 ">
           Please reach out if you need help with anything coding related or if you have any questions
         </p>
       </div>
-      <form onSubmit = {onSubmit} action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+      <form onSubmit = {onSubmit} action="#" method="POST" className="mx-auto mt-12 max-w-xl tablet:mt-16">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-6 tablet:grid-cols-2">
           <div>
             <label htmlFor="first-name" className="block text-sm font-semibold leading-6 ">
               First name
@@ -91,7 +79,7 @@ export default function ContactForm(){
                 name="first-name"
                 type="text"
                 autoComplete="given-name"
-                className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-control border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-blue-600 tablet:text-sm tablet:leading-6"
               />
             </div>
           </div>
@@ -107,11 +95,11 @@ export default function ContactForm(){
                 name="last-name"
                 type="text"
                 autoComplete="family-name"
-                className="block w-full rounded-md border-0 px-3.5 py-2  shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-control border-0 px-3.5 py-2  shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-blue-600 tablet:text-sm tablet:leading-6"
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
+          <div className="tablet:col-span-2">
             <label htmlFor="company" className="block text-sm font-semibold leading-6 ">
               Reason for reaching out
             </label>
@@ -124,11 +112,11 @@ export default function ContactForm(){
                 name="Reason"
                 type="text"
                 autoComplete="organization"
-                className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-control border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 tablet:text-sm tablet:leading-6"
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
+          <div className="tablet:col-span-2">
             <label htmlFor="email" className="block text-sm font-semibold leading-6 ">
               Email
             </label>
@@ -140,11 +128,11 @@ export default function ContactForm(){
                 name="email"
                 type="email"
                 autoComplete="email"
-                className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-control border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 tablet:text-sm tablet:leading-6"
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
+          <div className="tablet:col-span-2">
             <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 ">
               Phone number
             </label>
@@ -159,7 +147,7 @@ export default function ContactForm(){
                 onChange={(e)=> setCountry(e.target.value)}
                   id="country"
                   name="country"
-                  className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                  className="h-full rounded-control border-0 bg-transparent bg-none py-0 pl-4 pr-9 focus:ring-2 focus:ring-inset focus:ring-blue-600 tablet:text-sm"
                 >
                   <option>US</option>
                   <option>CA</option>
@@ -177,11 +165,11 @@ export default function ContactForm(){
                 name="phone-number"
                 type="tel"
                 autoComplete="tel"
-                className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-control border-0 px-3.5 py-2 pl-20 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 tablet:text-sm tablet:leading-6"
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
+          <div className="tablet:col-span-2">
             <label htmlFor="message" className="block text-sm font-semibold leading-6">
               Message
             </label>
@@ -192,7 +180,7 @@ export default function ContactForm(){
                 id="message"
                 name="message"
                 rows={4}
-                className="block w-full rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-control border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 tablet:text-sm tablet:leading-6"
               />
             </div>
           </div>
@@ -201,7 +189,7 @@ export default function ContactForm(){
         <div className="mt-10">
           <button
             type="submit"
-            className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="block w-full rounded-control bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           >
             Let&apos;s talk
           </button>

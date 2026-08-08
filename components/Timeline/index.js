@@ -95,7 +95,7 @@ const HorizontalTimeline = ({ experiences, education }) => {
                                 className="absolute top-0 bottom-0 border-l border-gray-300 dark:border-zinc-700 dashed opacity-40 flex flex-col"
                                 style={{ left: `${left}px` }}
                             >
-                                <span className="ml-2 mt-0 text-xs font-bold opacity-50 sticky top-0 bg-white/90 dark:bg-zinc-800/90 text-gray-900 dark:text-gray-100 p-1 rounded backdrop-blur-sm border border-gray-200 dark:border-zinc-700 z-10">
+                                <span className="ml-2 mt-0 font-mono text-xs font-medium opacity-60 sticky top-0 bg-white/90 dark:bg-zinc-800/90 text-gray-900 dark:text-gray-100 p-1 rounded-control backdrop-blur-sm border border-gray-200 dark:border-zinc-700 z-10">
                                     {year}
                                 </span>
                             </div>
@@ -140,7 +140,7 @@ const HorizontalTimeline = ({ experiences, education }) => {
                             <div
                                 key={event.id || event.org}
                                 onClick={() => openModal(event)}
-                                className={`absolute rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden group bg-gradient-to-r ${event.color} flex items-center px-4 border-2 border-transparent hover:border-gray-200 dark:hover:border-zinc-400 z-20`}
+                                className={`absolute rounded-control transition-colors duration-200 cursor-pointer overflow-hidden group bg-gradient-to-r ${event.color} flex items-center px-4 border-2 border-transparent hover:border-gray-800 dark:hover:border-white z-20`}
                                 style={{
                                     left: `${left}px`,
                                     width: `${Math.max(width, 100)}px`, // Min visually
@@ -151,7 +151,7 @@ const HorizontalTimeline = ({ experiences, education }) => {
                                 <div className="flex flex-col truncate text-white drop-shadow-md">
                                     <span className="font-bold text-sm truncate">{event.org}</span>
                                     <span className="text-xs truncate opacity-90">{event.position}</span>
-                                    <span className="text-[10px] uppercase tracking-wider opacity-90">{event.dates}</span>
+                                    <span className="font-mono text-[10px] tracking-tight opacity-90">{event.dates}</span>
                                 </div>
                             </div>
                         )
@@ -166,7 +166,7 @@ const HorizontalTimeline = ({ experiences, education }) => {
                         className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
                         onClick={closeModal}
                     ></div>
-                    <div className="relative w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-6 laptop:p-10 border border-gray-100 dark:border-zinc-800 animate-fadeInUp max-h-[90vh] overflow-y-auto">
+                    <div className="relative w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-surface shadow-2xl p-6 laptop:p-10 border border-gray-200 dark:border-zinc-800 max-h-[90vh] overflow-y-auto">
                         <button
                             onClick={closeModal}
                             className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors"
@@ -176,10 +176,8 @@ const HorizontalTimeline = ({ experiences, education }) => {
                             </svg>
                         </button>
 
-                        <span
-                            className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider mb-4 text-white bg-gradient-to-r ${selectedItem.color}`}
-                        >
-                            {selectedItem.type === "work" ? "WORK" : "EDUCATION"}
+                        <span className="inline-block font-mono text-[11px] uppercase tracking-[0.15em] text-gray-400 dark:text-zinc-500 mb-4">
+                            {selectedItem.type === "work" ? "Work" : "Education"}
                         </span>
 
                         <h2 className="text-3xl laptop:text-4xl font-bold mb-2 leading-tight text-gray-900 dark:text-white">
@@ -214,7 +212,7 @@ const HorizontalTimeline = ({ experiences, education }) => {
                             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-zinc-800">
                                 <button
                                     onClick={() => window.open(selectedItem.url, "_blank")}
-                                    className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-black px-6 py-3 rounded-lg font-bold hover:opacity-80 transition-opacity"
+                                    className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-black px-6 py-3 rounded-control font-bold hover:opacity-80 transition-opacity"
                                 >
                                     Visit Website
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

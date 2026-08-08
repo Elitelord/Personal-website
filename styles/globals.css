@@ -1,17 +1,38 @@
-@import url("https://fonts.googleapis.com/css2?family=Hind:wght@400;500;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @import "./markdown.css";
 
-* {
-  font-family: "Hind";
-}
-
+/* Fonts are loaded by next/font in pages/_app.js and published as
+   --font-sans / --font-mono. Note there is deliberately no `* { font-family }`
+   rule here: a universal selector sets the family on every element directly, so
+   `font-mono` on a parent would never reach its children. */
 html, body {
-  @apply dark:bg-black dark:text-white;
+  @apply font-sans dark:bg-black dark:text-white;
   overflow-x: clip;
   max-width: 100vw;
+}
+
+/* ---------------------------------------------------------------
+   Design tokens
+   --------------------------------------------------------------- */
+:root {
+  --grid-line: rgba(15, 23, 42, 0.075);
+  --grid-line-lit: rgba(37, 99, 235, 0.20); /* blue-600 */
+  --grid-size: 28px;
+  --spotlight-radius: 200px;
+}
+
+.dark {
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --grid-line-lit: rgba(96, 165, 250, 0.26); /* blue-400 */
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --grid-size: 40px;
+    --spotlight-radius: 260px;
+  }
 }
 
 @keyframes scroll {
@@ -30,67 +51,6 @@ html, body {
 
 .animate-marquee:hover {
   animation-play-state: paused;
-}
-
-.gradient-circle {
-  position: absolute;
-  pointer-events: none;
-  z-index: 100;
-  top: -30px;
-  height: 40px;
-  width: 100%;
-  opacity: 0.5;
-  filter: blur(40px);
-  background: radial-gradient(circle,
-      rgba(248, 107, 223, 1) 0%,
-      rgba(107, 107, 248, 0.8) 100%);
-}
-
-.gradient-circle-bottom {
-  position: absolute;
-  pointer-events: none;
-  z-index: 100;
-  bottom: -20px;
-  height: 30px;
-  width: 100%;
-  opacity: 0.5;
-  filter: blur(40px);
-  background: radial-gradient(circle,
-      rgba(248, 107, 223, 1) 0%,
-      rgba(107, 107, 248, 0.8) 100%);
-}
-
-.gradient-shadow:hover::before {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(-45deg, #45caff 0%, #ff1b6b 100%);
-  transform: translate3d(0px, 20px, 0) scale(0.95);
-  filter: blur(20px);
-  opacity: var(0.7);
-  transition: opacity 0.3s;
-  border-radius: inherit;
-}
-
-/* 
-* Prevents issues when the parent creates a 
-* stacking context. (For example, using the transform
-* property )
-*/
-.gradient-shadow:hover::after {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: inherit;
-  border-radius: inherit;
 }
 
 /* Custom Scrollbar */
@@ -126,47 +86,53 @@ html, body {
   /* gray-500 */
 }
 
-/* Decorative Accents */
-.accent-purple {
-  position: absolute;
-  background-color: #a855f7;
-  filter: blur(100px);
-  opacity: 0.35;
-  border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+/* ---------------------------------------------------------------
+   Grid background
+   Two fixed layers: a static base grid, and a brighter copy of the
+   same geometry revealed only within a radius of the pointer.
+   The spotlight layer is mounted by JS on fine-pointer devices only.
+   --------------------------------------------------------------- */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   pointer-events: none;
-  z-index: 0;
-  transform: rotate(-15deg) skewX(5deg);
 }
 
-.accent-teal {
+.grid-bg__base,
+.grid-bg__spotlight {
   position: absolute;
-  background-color: #14b8a6;
-  filter: blur(110px);
-  opacity: 0.30;
-  border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
-  pointer-events: none;
-  z-index: 0;
-  transform: rotate(20deg) skewY(-8deg);
+  inset: 0;
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: center center;
 }
 
-.accent-blue {
-  position: absolute;
-  background-color: #3b82f6;
-  filter: blur(120px);
-  opacity: 0.30;
-  border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
-  pointer-events: none;
-  z-index: 0;
-  transform: rotate(35deg) skewX(-10deg);
+.grid-bg__base {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 100%);
 }
 
-.accent-pink {
-  position: absolute;
-  background: radial-gradient(ellipse, rgba(248, 107, 223, 1) 0%, rgba(107, 107, 248, 0.7) 100%);
-  filter: blur(110px);
-  opacity: 0.40;
-  border-radius: 60% 40% 45% 55% / 40% 60% 40% 60%;
-  pointer-events: none;
-  z-index: 0;
-  transform: rotate(-30deg) skewY(12deg);
+.grid-bg__spotlight {
+  background-image:
+    linear-gradient(to right, var(--grid-line-lit) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-lit) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(
+    var(--spotlight-radius) circle at var(--mx, 50%) var(--my, 50%),
+    #000 0%,
+    transparent 70%
+  );
+  mask-image: radial-gradient(
+    var(--spotlight-radius) circle at var(--mx, 50%) var(--my, 50%),
+    #000 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.grid-bg__spotlight[data-active="true"] {
+  opacity: 1;
 }

@@ -8,7 +8,7 @@
     "showBlog": false,
     "darkMode": true,
     "showResume": true,
-    "showContact": true,
+    "showContact": false,
     "codingProfiles": {
         "leetcode": {
             "username": "elitelord",
@@ -222,7 +222,12 @@
                 "org": "Alpha AI Engineering",
                 "url": "https://alphaaiengineering.com/",
                 "position": "AI Engineer Intern",
-                "bullets": []
+                "bullets": [
+                    "Fine-tuned a Qwen3-4B model with QLoRA to explain science at a 3rd-grade reading level, scoring 8/12 on a readability + accuracy benchmark and beating the best frontier model's score of 4/12",
+                    "Building an adaptive benchmark for a custom educational LLM being developed for Alpha School's 35+ campuses nationwide",
+                    "Designed the benchmark around Multidimensional Item Response Theory (MIRT) to match full-benchmark precision with up to 100x fewer questions, based on tinyBenchmarks and other foundational research",
+                    "Defined 4 tutoring skills and a Q-matrix for the benchmark, and implemented a Graded Response Model to standardize LLM-as-a-judge scoring"
+                ]
             },
             {
                 "id": "1",
@@ -335,7 +340,7 @@
                 "id": "c5369bd6-0d7d-40c8-bdcb-5386b30f47a2",
                 "universityName": "University of Texas at Austin",
                 "universityDate": "8/2025-Present",
-                "universityGPA": "4.00",
+                "universityGPA": "3.84",
                 "universityPara": "Full Time CS Student"
             }
         ],

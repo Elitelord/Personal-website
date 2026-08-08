@@ -66,7 +66,7 @@
 /* BlockQuote */
 
 .markdown-class blockquote {
-  @apply p-5 border-l-8 rounded-lg shadow-lg  text-sm bg-slate-200 text-black;
+  @apply p-5 border-l-8 rounded-control shadow-lg  text-sm bg-slate-200 text-black;
 }
 
 .markdown-class blockquote p {
@@ -78,7 +78,7 @@
 /* Image */
 
 .markdown-class img {
-  @apply my-5 object-cover rounded-lg shadow-lg;
+  @apply my-5 object-cover rounded-surface shadow-lg;
   max-height: unset;
   width: auto;
 }

@@ -25,8 +25,33 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
+# env files — the previous rule only covered `.env*.local`, so a plain `.env`
+# (which is where MAILGUN_API_KEY / MAILGUN_DOMAIN live) would have been committed
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
+
+# tooling / editors
+.claude/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS junk
+Thumbs.db
+desktop.ini
+
+# keys & certs (*.pem already covered above)
+*.key
+*.p12
+*.pfx
+id_rsa*
+
+# local backups & scratch
+*.bak
+*.orig
+*~
