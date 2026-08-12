@@ -21,6 +21,11 @@ html, body {
   --grid-line-lit: rgba(37, 99, 235, 0.20); /* blue-600 */
   --grid-size: 28px;
   --spotlight-radius: 200px;
+
+  /* Minesweeper cell size. Deliberately separate from --grid-size. Largest on
+     small screens, where only Beginner (9 wide) is offered and cells need to be
+     comfortably tappable. */
+  --ms-cell: 34px;
 }
 
 .dark {
@@ -28,10 +33,27 @@ html, body {
   --grid-line-lit: rgba(96, 165, 250, 0.26); /* blue-400 */
 }
 
+/* Very small phones (320px): 9 x 34px overruns the gutters. */
+@media (max-width: 374px) {
+  :root {
+    --ms-cell: 29px;
+  }
+}
+
+/* Tablet is the tightest case: it's the smallest width that offers Expert
+   (25 wide) but gets no extra room from the content column's max-width, so
+   cells dip here to keep the board inside the page. */
+@media (min-width: 768px) {
+  :root {
+    --ms-cell: 26px;
+  }
+}
+
 @media (min-width: 1024px) {
   :root {
     --grid-size: 40px;
     --spotlight-radius: 260px;
+    --ms-cell: 34px;
   }
 }
 
@@ -135,4 +157,191 @@ html, body {
 
 .grid-bg__spotlight[data-active="true"] {
   opacity: 1;
+}
+
+/* ---------------------------------------------------------------
+   Hidden mine (easter egg)
+   Sits in its own fixed layer rather than inside .grid-bg, because that
+   layer is z-index:-1 and pointer-events:none and so can never be clicked.
+   The layer stays click-through; only the glyph itself is interactive, and
+   JS only positions it over genuinely empty background.
+   --------------------------------------------------------------- */
+.mine-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 30; /* under the header (z-40 / z-50) */
+  pointer-events: none;
+}
+
+.mine-cell {
+  position: absolute;
+  left: var(--mine-x, -999px);
+  top: var(--mine-y, -999px);
+  width: var(--grid-size);
+  height: var(--grid-size);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--grid-line-lit);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease-out, color 220ms ease-out;
+}
+
+.mine-cell[data-visible="true"] {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.mine-cell:hover,
+.mine-cell:focus-visible {
+  color: rgb(239, 68, 68);
+  outline: none;
+}
+
+.mine-cell svg {
+  width: 55%;
+  height: 55%;
+}
+
+/* ---------------------------------------------------------------
+   Detonation
+   --------------------------------------------------------------- */
+.detonation {
+  position: fixed;
+  inset: 0;
+  z-index: 60; /* above the header */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.detonation__flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--blast-x) var(--blast-y),
+    rgba(255, 226, 178, 0.95) 0%,
+    rgba(239, 68, 68, 0.55) 18%,
+    transparent 60%
+  );
+  animation: detonation-flash 750ms ease-out forwards;
+}
+
+.detonation__ring {
+  position: absolute;
+  left: var(--blast-x);
+  top: var(--blast-y);
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 9999px;
+  border: 3px solid rgba(239, 68, 68, 0.9);
+  animation: detonation-ring 750ms cubic-bezier(0.15, 0.7, 0.3, 1) forwards;
+}
+
+@keyframes detonation-flash {
+  0% { opacity: 0; }
+  12% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes detonation-ring {
+  0% { transform: scale(1); opacity: 1; border-width: 3px; }
+  100% { transform: scale(260); opacity: 0; border-width: 0.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detonation { display: none; }
+}
+
+/* ---------------------------------------------------------------
+   Debris
+   Sibling of the page root (rendered from DetonationProvider) — page roots
+   carry z-0, which creates a stacking context, so a layer nested inside one
+   could never rise above the header. 61 puts fragments in front of the flash
+   and, after the route change, in front of the incoming page.
+   --------------------------------------------------------------- */
+.debris {
+  position: fixed;
+  inset: 0;
+  z-index: 61;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict; /* fragments can't affect layout outside the layer */
+}
+
+.debris > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 50% 50%;
+}
+
+/* ---------------------------------------------------------------
+   Minesweeper page entrance
+   --------------------------------------------------------------- */
+:root {
+  /* Where the page slides in from. Single knob — try -100% for top,
+     or 0 with the opacity keyframe alone for a straight fade. */
+  --ms-enter-from: 100%;
+}
+
+.ms-enter {
+  animation: ms-enter 420ms cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+@keyframes ms-enter {
+  from {
+    transform: translate3d(0, var(--ms-enter-from), 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .debris { display: none; }
+  .ms-enter { animation: none; }
+}
+
+/* ---------------------------------------------------------------
+   Win confetti
+   --------------------------------------------------------------- */
+.confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti__piece {
+  position: absolute;
+  top: -6vh;
+  opacity: 0;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift, 0), 108vh, 0) rotate(var(--spin, 360deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti { display: none; }
 }

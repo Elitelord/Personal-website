@@ -9,6 +9,22 @@
     "darkMode": true,
     "showResume": true,
     "showContact": false,
+    "minesweeper": {
+        "modes": [
+            {
+                "label": "Expert",
+                "bestTime": "57.896s",
+                "rank": "704",
+                "outOf": "3,747,951"
+            },
+            {
+                "label": "Evil NG",
+                "bestTime": "79.393s",
+                "rank": "127",
+                "outOf": "611,455"
+            }
+        ]
+    },
     "codingProfiles": {
         "leetcode": {
             "username": "elitelord",

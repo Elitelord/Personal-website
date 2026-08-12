@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
+import { useMinesweeperUnlocked } from "../../utils/minesweeper";
 // Local Data
 import data from "../../data/portfolio.json";
 
@@ -14,6 +15,8 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
   const [mounted, setMounted] = useState(false);
   const [isClient, setIsClient] = useState(false)
   const { name, showBlog, showResume, showContact} = data;
+  // False during SSR and the first client render, so this can't desync markup.
+  const minesweeperUnlocked = useMinesweeperUnlocked();
 
   useEffect(() => {
     setMounted(true);
@@ -26,7 +29,8 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
 
   return (
     <>
-      <Popover className="block tablet:hidden sticky top-0 z-50 mt-5 p-2 rounded-surface backdrop-blur-lg bg-white/85 dark:bg-black/80 border border-transparent dark:border-zinc-800/50 shadow-sm transition-all duration-300">
+      {/* data-no-shatter: the nav stays put when the page explodes. */}
+      <Popover data-no-shatter className="block tablet:hidden sticky top-0 z-50 mt-5 p-2 rounded-surface backdrop-blur-lg bg-white/85 dark:bg-black/80 border border-transparent dark:border-zinc-800/50 shadow-sm transition-all duration-300">
         {({ open }) => (
           <>
             <div className="flex items-center justify-between">
@@ -87,6 +91,11 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
                       Resume
                     </Button>
                   )}
+                  {minesweeperUnlocked && (
+                    <Button onClick={() => router.push("/minesweeper")}>
+                      Minesweeper
+                    </Button>
+                  )}
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-2">
@@ -107,6 +116,11 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
                   {showContact && (
                     <Button onClick={() => router.push("/contact")}>Contact</Button>
                   )}
+                  {minesweeperUnlocked && (
+                    <Button onClick={() => router.push("/minesweeper")}>
+                      Minesweeper
+                    </Button>
+                  )}
                 </div>
               )}
             </Popover.Panel>
@@ -114,6 +128,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
         )}
       </Popover>
       <div
+        data-no-shatter
         className="mt-10 hidden flex-row items-center justify-between sticky top-0 z-40 tablet:flex p-2 rounded-surface backdrop-blur-lg bg-white/85 dark:bg-black/80 border border-transparent dark:border-zinc-800/50 shadow-sm transition-all duration-300 dark:text-white"
       >
         <h1
@@ -143,6 +158,12 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
 
             {showContact && (
               <Button onClick={() => router.push("/contact")}>Contact</Button>
+            )}
+
+            {minesweeperUnlocked && (
+              <Button onClick={() => router.push("/minesweeper")}>
+                Minesweeper
+              </Button>
             )}
 
             {mounted && data.darkMode && (
@@ -175,6 +196,12 @@ const Header = ({ handleWorkScroll, handleAboutScroll, handleExperiencesScroll, 
 
             {showContact && (
               <Button onClick={() => router.push("/contact")}>Contact</Button>
+            )}
+
+            {minesweeperUnlocked && (
+              <Button onClick={() => router.push("/minesweeper")}>
+                Minesweeper
+              </Button>
             )}
 
             {mounted && data.darkMode && (
