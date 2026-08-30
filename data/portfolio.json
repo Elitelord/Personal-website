@@ -46,102 +46,47 @@
         }
     },
     "skills": [
-        {
-            "name": "Java",
-            "category": "Language"
-        },
-        {
-            "name": "Python",
-            "category": "Language"
-        },
-        {
-            "name": "JavaScript",
-            "category": "Language"
-        },
-        {
-            "name": "TypeScript",
-            "category": "Language"
-        },
-        {
-            "name": "C++",
-            "category": "Language"
-        },
-        {
-            "name": "HTML",
-            "category": "Language"
-        },
-        {
-            "name": "CSS",
-            "category": "Language"
-        },
-        {
-            "name": "SQL",
-            "category": "Language"
-        },
-        {
-            "name": "React",
-            "category": "Framework"
-        },
-        {
-            "name": "NextJS",
-            "category": "Framework"
-        },
-        {
-            "name": "NodeJS",
-            "category": "Framework"
-        },
-        {
-            "name": "ExpressJS",
-            "category": "Framework"
-        },
-        {
-            "name": "MongoDB",
-            "category": "Framework"
-        },
-        {
-            "name": "TailwindCSS",
-            "category": "Framework"
-        },
-        {
-            "name": "Flask",
-            "category": "Framework"
-        },
-        {
-            "name": "FastAPI",
-            "category": "Framework"
-        },
-        {
-            "name": "React Native",
-            "category": "Framework"
-        },
-        {
-            "name": "Expo",
-            "category": "Framework"
-        },
-        {
-            "name": "OpenCV",
-            "category": "Framework"
-        },
-        {
-            "name": "Vite",
-            "category": "Tool"
-        },
-        {
-            "name": "Git",
-            "category": "Tool"
-        },
-        {
-            "name": "GitHub",
-            "category": "Tool"
-        },
-        {
-            "name": "Docker",
-            "category": "Tool"
-        },
-        {
-            "name": "Figma",
-            "category": "Tool"
-        }
+        { "name": "Python", "category": "Language" },
+        { "name": "TypeScript", "category": "Language" },
+        { "name": "JavaScript", "category": "Language" },
+        { "name": "Java", "category": "Language" },
+        { "name": "C++", "category": "Language" },
+        { "name": "Rust", "category": "Language" },
+        { "name": "Kotlin", "category": "Language" },
+        { "name": "SQL", "category": "Language" },
+        { "name": "HTML/CSS", "category": "Language" },
+
+        { "name": "React", "category": "Framework" },
+        { "name": "Next.js", "category": "Framework" },
+        { "name": "Node.js", "category": "Framework" },
+        { "name": "Express", "category": "Framework" },
+        { "name": "Flask", "category": "Framework" },
+        { "name": "FastAPI", "category": "Framework" },
+        { "name": "React Native", "category": "Framework" },
+        { "name": "Expo", "category": "Framework" },
+        { "name": "Tauri", "category": "Framework" },
+        { "name": "Tailwind CSS", "category": "Framework" },
+        { "name": ".NET", "category": "Framework" },
+
+        { "name": "QLoRA", "category": "ML" },
+        { "name": "PyTorch", "category": "ML" },
+        { "name": "TensorFlow", "category": "ML" },
+        { "name": "HuggingFace", "category": "ML" },
+        { "name": "MediaPipe", "category": "ML" },
+        { "name": "OpenCV", "category": "ML" },
+        { "name": "vLLM", "category": "ML" },
+        { "name": "ONNX", "category": "ML" },
+
+        { "name": "AWS", "category": "Tool" },
+        { "name": "PostgreSQL", "category": "Tool" },
+        { "name": "MongoDB", "category": "Tool" },
+        { "name": "Supabase", "category": "Tool" },
+        { "name": "Prisma", "category": "Tool" },
+        { "name": "Docker", "category": "Tool" },
+        { "name": "Git/GitHub", "category": "Tool" },
+        { "name": "Vite", "category": "Tool" },
+        { "name": "Figma", "category": "Tool" },
+        { "name": "REST API", "category": "Tool" }
     ],
     "projects": [
         {
@@ -150,6 +95,13 @@
             "description": "Personal Project, Windows Development with React, Tauri, and C++ DLL",
             "imageSrc": "https://i.imgur.com/xdbr7IZ.png",
             "url": "https://github.com/Elitelord/TaskManagerPlus"
+        },
+        {
+            "id": "56d195ca-d4c9-45c1-8f76-06f195f3f0db",
+            "title": "UniversalTimeline",
+            "description": "Personal Project, Windows, Android, and Web Development with NextJS, NestJS, .NET, and Kotlin",
+            "imageSrc": "https://i.imgur.com/HegyNsF.png",
+            "url": "https://github.com/Elitelord/UniversalTimeline"
         },
         {
             "id": "150fbdd6-315c-49fd-a949-4e385c0407b7",
@@ -230,11 +182,21 @@
     "aboutpara": "My name is Sameer Agarwal, and I am a full-time freshman at the University of Texas at Austin, Texas. I'm majoring in computer science and have been developing websites and other projects. I am also learning about Machine Learning, AI, and Applications. Some activities I do include FRC Robotics, Tutoring, and Computer Repair. In my free time, I listen to music, play guitar, and play video games. I hope this website gives you an insight into my journey with Computer Science so far. Thanks for reading!",
     "resume": {
         "tagline": "👋  I'm a College student who aspires to be a Software Engineer",
-        "description": "Experienced Software Engineer Intern at NeuraCities. Proficient in Java, C++, Python, and frameworks such as React and NextJs",
+        "description": "Experienced Software Engineer Intern at NeuraCities and AI Engineer Intern at Alpha AI Engineering. Proficient in Java, C++, Python, and frameworks such as React and NextJs",
         "experiences": [
             {
+                "id": "8",
+                "dates": "08/2026 - Present",
+                "org": "UT Austin Department of Computer Science",
+                "url": "https://www.cs.utexas.edu/",
+                "position": "Undergraduate Course Assistant, CS 303E",
+                "bullets": [
+                    "Undergraduate Course Assistant for CS 303E: Elements of Computers and Programming"
+                ]
+            },
+            {
                 "id": "7",
-                "dates": "06/2026 - Present",
+                "dates": "06/2026 - 08/2026",
                 "org": "Alpha AI Engineering",
                 "url": "https://alphaaiengineering.com/",
                 "position": "AI Engineer Intern",
@@ -355,7 +317,14 @@
             {
                 "id": "c5369bd6-0d7d-40c8-bdcb-5386b30f47a2",
                 "universityName": "University of Texas at Austin",
-                "universityDate": "8/2025-Present",
+                "universityDate": "8/2025-5/2026",
+                "universityGPA": "3.84",
+                "universityPara": "Full Time CS Student"
+            },
+            {
+                "id": "c5369bd6-0d7d-40c8-bdcb-5386b30f47a3",
+                "universityName": "University of Texas at Austin",
+                "universityDate": "8/2026-Present",
                 "universityGPA": "3.84",
                 "universityPara": "Full Time CS Student"
             }

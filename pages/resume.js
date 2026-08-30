@@ -9,10 +9,11 @@ import data from "../data/portfolio.json";
 
 const SKILL_GROUPS = [
   { label: "Languages", match: (s) => s.category === "Language" },
-  { label: "Frameworks", match: (s) => s.category === "Framework" },
+  { label: "Frameworks & Libraries", match: (s) => s.category === "Framework" },
+  { label: "Machine Learning", match: (s) => s.category === "ML" },
   {
-    label: "Tools",
-    match: (s) => s.category !== "Language" && s.category !== "Framework",
+    label: "Data & Infrastructure",
+    match: (s) => s.category === "Tool",
   },
 ];
 

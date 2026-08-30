@@ -22,6 +22,9 @@ const SkillsMarquee = () => {
         if (category === "Framework") {
             return "text-violet-600 dark:text-violet-400";
         }
+        if (category === "ML") {
+            return "text-rose-600 dark:text-rose-400";
+        }
         return "text-emerald-600 dark:text-emerald-400";
     }
 
