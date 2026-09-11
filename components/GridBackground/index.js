@@ -8,6 +8,93 @@ import { findNearestMine, shouldRetain } from "./mines";
 const BLOCKING_SELECTOR =
   'a, button, input, textarea, select, label, img, svg, h1, h2, h3, h4, h5, p, li, dt, dd, span, [role="link"], [role="grid"], [role="button"]';
 
+/** Our own layers — they're never "content" for placement purposes. */
+const EFFECT_LAYERS =
+  ".grid-bg, .mine-layer, .mine-cell, .detonation, .debris";
+
+const TRANSPARENT = /^rgba\(\s*0,\s*0,\s*0,\s*0\s*\)$|^transparent$/;
+
+/**
+ * Does this element paint anything of its own? Cards are plain `div`s carrying
+ * a background and a border, so they never appear in BLOCKING_SELECTOR — which
+ * is exactly how mines ended up sitting on top of them.
+ */
+const paints = (cs) => {
+  if (cs.backgroundImage && cs.backgroundImage !== "none") return true;
+  if (!TRANSPARENT.test(cs.backgroundColor)) return true;
+  return (
+    parseFloat(cs.borderTopWidth) > 0 ||
+    parseFloat(cs.borderRightWidth) > 0 ||
+    parseFloat(cs.borderBottomWidth) > 0 ||
+    parseFloat(cs.borderLeftWidth) > 0
+  );
+};
+
+/**
+ * Every on-screen box a mine must keep off, as viewport rects.
+ *
+ * Rects rather than elementsFromPoint hit-testing, which was the first attempt:
+ * sampling a handful of points inside the cell misses anything thinner than the
+ * gaps between them (the timeline's 1px ticks) and misses a card whose edge
+ * clips the cell by less than the sample spacing. Intersection has no such
+ * blind spot, and it doesn't care about `pointer-events` or stacking either.
+ */
+const collectBlockers = (viewportW, viewportH) => {
+  const out = [];
+  for (const el of document.querySelectorAll("*")) {
+    if (el === document.body || el === document.documentElement) continue;
+    if (el.closest(EFFECT_LAYERS)) continue;
+
+    const cs = window.getComputedStyle(el);
+    if (
+      cs.display === "none" ||
+      cs.visibility === "hidden" ||
+      parseFloat(cs.opacity) === 0
+    ) {
+      continue;
+    }
+    if (!el.matches(BLOCKING_SELECTOR) && !paints(cs)) continue;
+
+    const r = el.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) continue;
+    if (r.bottom < 0 || r.top > viewportH || r.right < 0 || r.left > viewportW) {
+      continue;
+    }
+    out.push(r);
+  }
+  return out;
+};
+
+/**
+ * The cell box, not the glyph box. The glyph only fills 55% of the cell, but
+ * the whole cell is a <button> with `pointer-events: auto` once visible — so
+ * anything less would let the mine's click target sit over a card even when the
+ * bomb itself looks clear of it.
+ */
+const makePlacementTest = (blockers, cellSize, viewportW, viewportH) => (
+  px,
+  py
+) => {
+  const half = cellSize / 2;
+  const left = px - half;
+  const right = px + half;
+  const top = py - half;
+  const bottom = py + half;
+
+  // Cells at the edge can hang off the viewport; a half-clipped bomb reads as a
+  // rendering glitch rather than something hidden on purpose.
+  if (left < 0 || top < 0 || right > viewportW || bottom > viewportH) {
+    return false;
+  }
+
+  for (const b of blockers) {
+    if (left < b.right && right > b.left && top < b.bottom && bottom > b.top) {
+      return false;
+    }
+  }
+  return true;
+};
+
 const GridBackground = () => {
   // The spotlight layer only mounts once we have seen a real mouse move.
   // Gating on the event rather than `(pointer: fine)` means touch devices
@@ -41,6 +128,17 @@ const GridBackground = () => {
       spotRadius = parseFloat(cs.getPropertyValue("--spotlight-radius")) || 200;
     };
     readTokens();
+
+    // Walking the DOM for blockers costs a few ms, so it's done once and reused
+    // until something moves the page under the fixed mine layer.
+    let blockers = null;
+    let scrollTimer = null;
+    const ensureBlockers = () => {
+      if (!blockers) {
+        blockers = collectBlockers(root.clientWidth, root.clientHeight);
+      }
+      return blockers;
+    };
 
     const flush = () => {
       frameRef.current = null;
@@ -78,13 +176,23 @@ const GridBackground = () => {
       // innerWidth includes the scrollbar, which on a scrolling page shifted
       // the computed origin by half a scrollbar width and pushed every mine
       // off-centre from the squares it's supposed to sit in.
+      // The candidate can be up to spotRadius * REVEAL_FRACTION from the
+      // cursor — ~117px at desktop sizes — so "the cursor is over background"
+      // says nothing about what's under the mine itself. Each candidate gets
+      // hit-tested at its own position, nearest first.
       const best = findNearestMine(
         x,
         y,
         cellSize,
         spotRadius,
         root.clientWidth,
-        root.clientHeight
+        root.clientHeight,
+        makePlacementTest(
+          ensureBlockers(),
+          cellSize,
+          root.clientWidth,
+          root.clientHeight
+        )
       );
 
       if (!best) {
@@ -162,24 +270,54 @@ const GridBackground = () => {
     // Cell geometry moves with the viewport, so a retained mine is stale.
     const handleResize = () => {
       readTokens();
+      blockers = null;
       minePosRef.current = null;
       if (mineRef.current) mineRef.current.dataset.visible = "false";
     };
 
+    // The mine layer is fixed, so scrolling slides content underneath a mine
+    // that's already showing. Hide it for the duration and re-place once the
+    // scroll settles: re-placing per frame would rebuild the blocker list every
+    // frame, and a mine hopping around mid-scroll is noise anyway.
+    const handleScroll = () => {
+      blockers = null;
+      minePosRef.current = null;
+      if (mineRef.current) mineRef.current.dataset.visible = "false";
+
+      if (scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        scrollTimer = null;
+        // The cached pointermove target is stale now too, so re-derive what the
+        // cursor is over rather than trusting it.
+        const { x, y } = pointerRef.current;
+        const under = document.elementFromPoint(x, y);
+        hoveringMineRef.current = !!(under && under.closest(".mine-cell"));
+        overBackgroundRef.current =
+          hoveringMineRef.current ||
+          (!!under && !under.closest(BLOCKING_SELECTOR));
+        if (frameRef.current === null) {
+          frameRef.current = window.requestAnimationFrame(flush);
+        }
+      }, 150);
+    };
+
     window.addEventListener("pointermove", handleMove, { passive: true });
     window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     document.addEventListener("pointerleave", handleLeave);
     reducedMotion.addEventListener("change", handleReducedMotionChange);
 
     return () => {
       window.removeEventListener("pointermove", handleMove);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("pointerleave", handleLeave);
       reducedMotion.removeEventListener("change", handleReducedMotionChange);
       if (frameRef.current !== null) {
         window.cancelAnimationFrame(frameRef.current);
         frameRef.current = null;
       }
+      if (scrollTimer) clearTimeout(scrollTimer);
       root.style.removeProperty("--mx");
       root.style.removeProperty("--my");
     };
