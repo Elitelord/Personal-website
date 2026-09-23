@@ -185,6 +185,14 @@
         "description": "Experienced Software Engineer Intern at NeuraCities and AI Engineer Intern at Alpha AI Engineering. Proficient in Java, C++, Python, and frameworks such as React and NextJs",
         "experiences": [
             {
+                "id": "9",
+                "dates": "09/2026 - Present",
+                "org": "Texas Convergent",
+                "url": "https://txconvergent.org/",
+                "position": "Build Team Member",
+                "bullets": []
+            },
+            {
                 "id": "8",
                 "dates": "08/2026 - Present",
                 "org": "UT Austin Department of Computer Science",
@@ -201,10 +209,10 @@
                 "url": "https://alphaaiengineering.com/",
                 "position": "AI Engineer Intern",
                 "bullets": [
-                    "Fine-tuned a Qwen3-4B model with QLoRA to explain science at a 3rd-grade reading level, scoring 8/12 on a readability + accuracy benchmark and beating the best frontier model's score of 4/12",
-                    "Building an adaptive benchmark for a custom educational LLM being developed for Alpha School's 35+ campuses nationwide",
-                    "Designed the benchmark around Multidimensional Item Response Theory (MIRT) to match full-benchmark precision with up to 100x fewer questions, based on tinyBenchmarks and other foundational research",
-                    "Defined 4 tutoring skills and a Q-matrix for the benchmark, and implemented a Graded Response Model to standardize LLM-as-a-judge scoring"
+                    "Built an adaptive evaluation suite for a custom educational LLM, measuring tutoring and general-domain capability on checkpoints during training",
+                    "Cut required test questions by 30x across six benchmarks using Item Response Theory, keeping over 95% correlation with full-benchmark scores",
+                    "Designed a sharded, resumable pipeline on AWS GPUs to generate and grade responses from 115 open-weight models, and a branch and tag structure that let the team work on six benchmarks in parallel",
+                    "Fine-tuned a Qwen3-4B model with QLoRA to explain science at a 3rd-grade reading level, scoring 8/12 on a readability + accuracy benchmark and beating the best frontier model's score of 4/12"
                 ]
             },
             {
